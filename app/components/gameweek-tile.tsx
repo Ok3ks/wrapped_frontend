@@ -11,26 +11,46 @@ async function getGameweekData() : Promise<Players[]> {
             id: "1",
             name: "Salah",
             team: "Liverpool",
-            points: 11,
+            points: 8,
         },
         {
             id: "2",
             name: "Sarr",
             team: "Crystal Palace",
-            points: 80,
+            points: 4,
         },
         {
             id: "3",
             name: "Mateta",
             team: "Crystal Palace",
-            points: 70,
+            points: 9,
         },
         {
             id: "4",
             name: "Saka",
-            team: "Crystal Palace",
-            points: 70,
-        }
+            team: "Arsenal",
+            points: 5,
+        },
+        {
+            id: "3",
+            name: "Gravenberch",
+            team: "Liverpool",
+            points: 11,
+        },
+        {
+            id: "4",
+            name: "Cunha",
+            team: "Manchester United",
+            points: 1,
+        },
+
+        {
+            id: "5",
+            name: "Xhaka",
+            team: "Sunderland",
+            points: 10,
+        },
+        
     ]
 }
 export default async function gameweekTile({gameweek}: gameweekTileProps) {
@@ -38,10 +58,7 @@ export default async function gameweekTile({gameweek}: gameweekTileProps) {
     return (
             <div className="gameweek-tile">
                 <h2> Gameweek {gameweek}</h2>
-                <div>
-                    <DataTable columns={columns} data={data} />
-                </div>
-
+                <DataTable columns={columns} data={data} />
             </div>
         
     );

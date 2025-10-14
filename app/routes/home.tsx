@@ -11,7 +11,7 @@ export default function LandingPage() {
                 <div className='homepage'> 
                 {
                     Array.from({length: gameweekLength }, (_, i) => (
-                    <GameweekTile gameweek={i+1}>
+                    <GameweekTile gameweek={i+1} key={i+1}>
                     </GameweekTile>     
                     ))
                 };

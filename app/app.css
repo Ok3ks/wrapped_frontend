@@ -143,7 +143,7 @@ body {
 .gameweek-tile {
   border: 2px solid #ffd700;
   border-radius: 15px;
-  padding: 20px;
+  padding: 30px;
   width: 900px;
   height: 80px;
   margin-bottom: 10px;
@@ -162,7 +162,8 @@ body {
 }
 .gameweek-tile > h2 {
   justify-content: left;
-  color:black
+  color:black;
+  padding-bottom: 10px
 }
 
 .gameweek-tile > h2:visited {
