@@ -6,21 +6,18 @@ export default function LandingPage() {
     const summary = "";
 
     return (
-        <div className="flex grid-cols-2 gap-4">
-            <div className='homepage w-full h-500 overflow-y-scroll'> 
-            {
-                Array.from({length: gameweekLength }, (_, i) => (
-                <GameweekTile gameweek={i+1}>
-                </GameweekTile>     
-                ))
-            };
+        <div className='header'>
+            <div className="flex grid-cols-2 gap-4">
+                <div className='homepage'> 
+                {
+                    Array.from({length: gameweekLength }, (_, i) => (
+                    <GameweekTile gameweek={i+1}>
+                    </GameweekTile>     
+                    ))
+                };
+                </div>
             </div>
-            <div className="gameweek-info">
-                <img></img>
-                <h2>Gameweek {gameweek} summary</h2>
-                <p>{summary}</p>
-            </div>
-            </div>
+        </div>
     );
 }
 
