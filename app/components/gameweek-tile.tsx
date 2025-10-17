@@ -26,7 +26,7 @@ export default function GameweekTile({ gameweek }: gameweekTileProps) {
 
     
     if (!data) {
-        return <div>No data available for gameweek {gameweek}</div>;
+        return
       }
     return (
             <div className="gameweek-tile">

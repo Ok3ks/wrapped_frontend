@@ -1,7 +1,8 @@
+import { useCallback, useState } from 'react';
 import GameweekTile from '~/components/gameweek-tile';
+import { getGameweekData } from '~/data';
 export default function LandingPage() {
-    
-    const gameweek = 5;
+
     const gameweekLength = 38;
     const summary = "";
 
