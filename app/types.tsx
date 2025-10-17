@@ -24,7 +24,7 @@ export type Players = {
     player_name: string,
     position: string,
     recoveries: number,
-    redCards: number,
+    red_cards: number,
     saves: number,
     starts: number,
     tackles: number,

@@ -1,7 +1,7 @@
 import type { Players } from '~/types';
 
 export async function getGameweekData(gameweek:number) : Promise<any> {
-    const response = await fetch(`https://storage.googleapis.com/2025_2026/${gameweek}.json`, {
+    const response = await fetch(`https://storage.googleapis.com/2024_2025/${gameweek}.json`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
