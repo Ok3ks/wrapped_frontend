@@ -144,7 +144,6 @@ body {
   border: 2px solid #ffd700;
   border-radius: 15px;
   padding: 30px;
-  width: 900px;
   height: 80px;
   margin-bottom: 10px;
   background-color: #fff;
@@ -152,12 +151,11 @@ body {
   overflow-y: hidden;
   transition:
     height 4s,
-    background-color 5s,
+    background-color 3s,
 }
 
 .gameweek-tile:hover{
-  background-color: grey;
-  height: 500px
+  height: 550px;
   
 }
 .gameweek-tile > h2 {
