@@ -1,5 +1,5 @@
 export type Players = {
-    playerId: number,
+    player_id: number,
     bonus: number,
     bps: number,
     clean_sheets: number
