@@ -35,14 +35,7 @@ import {
     TableHeader,
     TableRow
 } from "../components/ui/table"
-
-export type Players = {
-    id: string,
-    name: string,
-    team: string,
-    points: number,
-}
-
+import type { Players } from '~/types'
 export const columns: ColumnDef<Players>[] = [
 
     {
