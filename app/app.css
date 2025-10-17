@@ -136,9 +136,9 @@ body {
 /* Gameweek Tile */
 
 .gameweek-table {
-  border: 2px solid #00ff04;
+  /* border: 2px solid #00ff04; */
   /* border-radius: 15px; */
-  border-style: dotted
+  /* border-style: dotted */
 }
 .gameweek-tile {
   border: 2px solid #ffd700;
