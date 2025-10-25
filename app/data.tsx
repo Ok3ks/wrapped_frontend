@@ -1,7 +1,9 @@
-import type { Players } from '~/types';
+import type { Season } from '~/types';
 
-export async function getGameweekData(gameweek:number) : Promise<any> {
-    const response = await fetch(`https://storage.googleapis.com/2024_2025/${gameweek}.json`, {
+
+
+export async function getGameweekData(gameweek:number, year:Season) : Promise<any> {
+    const response = await fetch(`https://storage.googleapis.com/${year}/${gameweek}.json`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

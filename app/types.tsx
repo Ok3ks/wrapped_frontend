@@ -33,3 +33,6 @@ export type Players = {
     total_points: number,
     yellow_cards: number,
 }
+
+
+export type Season = "2024_2025" | "2025_2026";

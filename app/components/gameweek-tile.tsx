@@ -1,19 +1,20 @@
 
 import { getGameweekData } from "~/data";
 import { columns, DataTable } from "./data-table";
-import {type Players } from "~/types";
+import {type Players, type Season } from "~/types";
 import { useCallback, useEffect, useState } from "react";
 
 interface gameweekTileProps {
     gameweek: number,
+    season: Season
 }
 
 
-export default function GameweekTile({ gameweek }: gameweekTileProps) {
+export default function GameweekTile({ gameweek, season }: gameweekTileProps) {
     const [ data, setData ]  = useState(null);
     const gameweekData = useCallback( async () => {
         try {
-        const response = await getGameweekData(gameweek)
+        const response = await getGameweekData(gameweek, season)
         setData(response);
         } catch {
             throw new Error("Error fetching data");
@@ -22,7 +23,7 @@ export default function GameweekTile({ gameweek }: gameweekTileProps) {
 
     useEffect(() =>{
         gameweekData();
-    }, [gameweekData]);
+    },  [season]);
 
     
     if (!data) {

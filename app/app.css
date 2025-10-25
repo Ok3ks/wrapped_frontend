@@ -193,3 +193,29 @@ body {
   font-size: medium;
   color: black
 }
+
+.season-modal-tile {
+  border: 2px solid #ffd700;
+  border-radius: 15px;
+  padding: 10px;
+  height: 40px;
+  background-color: #fff;
+  color: black;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  transition:
+    height 4s,
+    background-color 3s,
+}
+
+.season-modal-tile:hover {
+  background-color: black;
+  color: white;
+}
+
+/* ///add css for hover */
+
+.header {
+  margin: 10px;
+  padding: 5px
+}
