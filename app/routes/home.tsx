@@ -14,7 +14,7 @@ export default function LandingPage() {
         <div className='header'>
             <div className={`justify-center flex grid-rows-${seasons.length} gap-${seasons.length}`}>
             {
-                   seasons.map((season, index, array) => <Button className='season-modal-tile' onClick={() => setCurSeason(season)}> {season} </Button>
+                   seasons.map((season, index, array) => <Button key={season} className='button-filter' onClick={() => setCurSeason(season)}> {season} </Button>
                     )
             }
             </div>
@@ -29,7 +29,6 @@ export default function LandingPage() {
                 </div>
             </div>
         </div>
-        // </div>
     )
 }
 

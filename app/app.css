@@ -194,7 +194,7 @@ body {
   color: black
 }
 
-.season-modal-tile {
+.button-filter {
   border: 2px solid #ffd700;
   border-radius: 15px;
   padding: 10px;
@@ -208,7 +208,7 @@ body {
     background-color 3s,
 }
 
-.season-modal-tile:hover {
+.button-filter:hover {
   background-color: black;
   color: white;
 }

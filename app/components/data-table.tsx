@@ -26,7 +26,7 @@ import {
     TableHeader,
     TableRow
 } from "../components/ui/table"
-import type { Players } from '~/types'
+import type { Players, Position } from '~/types'
 
 // Custom cell renderer
 function Cell({ cell }: { cell: any }) {
@@ -44,6 +44,8 @@ function Header({ header }: { header: any }) {
     );
   }
 export const columns: ColumnDef<Players>[] = [
+
+    ///State Management
 
     {
         accessorKey: "player_name",
@@ -217,6 +219,11 @@ export const columns: ColumnDef<Players>[] = [
     {
         accessorKey: "position",
         header: "Position",
+        filterFn: "equals"
+        // filterFn: (row, columnId, value) => {
+            // Custom date range logic
+            
+            // return value == position; //react to state set on each button;
     },
     {
         accessorKey: "recoveries",
@@ -269,7 +276,9 @@ export function DataTable<TData, TValue>({
     const [pagination, setPagination] = useState({
         pageIndex: 0, //initial page index
         pageSize: 5, //default page size
-      });
+    });
+    const [position, setPosition] = useState<Position>('ALL');
+    const positions = Array.from<Position>(["GK", "DEF", "MID", "FWD", "ALL"]);
 
 function multiColumnFilter<TData extends Players & RowData>(
   row: { original: TData },
@@ -277,6 +286,7 @@ function multiColumnFilter<TData extends Players & RowData>(
   filterValue: string
 ) {
   const search = filterValue.toLowerCase();
+
   return (
     row.original.player_name.toLowerCase().includes(search) ||
     row.original.team.toLowerCase().includes(search)
@@ -307,7 +317,7 @@ function multiColumnFilter<TData extends Players & RowData>(
 
     return (
         <div>
-            <div className="flex items-center py-4">
+            <div className={`flex items-center py-4 justify-left flex grid-rows-${positions.length} gap-${positions.length}`}>
                 <Input
                     placeholder="Search"
                     value={globalFilter
@@ -318,6 +328,9 @@ function multiColumnFilter<TData extends Players & RowData>(
                     }
                     className="max-w-sm"
                     />
+            {
+                positions.map((position, index, array) => <Button key={position} className='button-filter' onClick={() => setPosition(position)}> {position} </Button>)
+            }
             </div>
         <div className="gameweek-table">
         <div style={{ overflowX: 'auto', position: 'relative' }}>
