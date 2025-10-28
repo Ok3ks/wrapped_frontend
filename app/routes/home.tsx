@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import GameweekTile from '~/components/gameweek-tile';
+import { GameweekTile, FixtureTile } from '~/components/gameweek-tile';
 import { Button } from '~/components/ui/button';
 import { getGameweekData } from '~/data';
 import { type Season } from '~/types';
@@ -23,9 +23,10 @@ export default function LandingPage() {
                 {
                     Array.from({length: gameweekLength }, (_, i) => (
                     <GameweekTile gameweek={i+1} key={i+1} season={curSeason}>
-                    </GameweekTile>     
+                    </GameweekTile> 
                     ))
                 };
+                    <FixtureTile gameweek={1} season={'2025_2026'}></FixtureTile>
                 </div>
             </div>
         </div>

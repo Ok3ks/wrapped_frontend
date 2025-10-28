@@ -37,3 +37,16 @@ export type Players = {
 
 export type Season = "2024_2025" | "2025_2026";
 export type Position = "GK" | "DEF" | "MID" | "FWD" | "ALL";
+export type Fixtures = {
+    homedifficulty: string
+    awaydifficulty: string
+    home: string
+    away: string
+    gameweek: number
+    season: Season
+    draw: boolean;
+    date: Date;
+    homeGoals: number
+    awayGoals: number
+    finished: boolean;
+};
