@@ -8,6 +8,25 @@ export async function getGameweekData(gameweek:number, year:Season) : Promise<an
         headers: {
             "Content-Type": "application/json"
         } as HeadersInit,
+        // cache: 'reload'
+    });
+
+    if (!response.ok) {
+       throw new Error("Error accessing gameweek data");
+    }
+    
+    const data = await response.json();
+    return data;
+}
+
+export async function getFixturesData(gameweek:number, year:Season) : Promise<any> {
+    // change to gameweek fixtures
+    const response = await fetch(`https://storage.googleapis.com/${year}/${gameweek}_fixture.json`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        } as HeadersInit,
+        // cache: 'reload'
     });
 
     if (!response.ok) {

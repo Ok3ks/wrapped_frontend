@@ -143,21 +143,25 @@ body {
 .gameweek-tile {
   border: 2px solid #ffd700;
   border-radius: 15px;
-  padding: 30px;
-  height: 80px;
+  padding: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  flex-direction: row;
   margin-bottom: 10px;
   background-color: #fff;
   box-sizing: border-box;
   overflow-y: hidden;
+  height: 550px;
   transition:
     height 4s,
     background-color 3s,
 }
 
-.gameweek-tile:hover{
-  height: 550px;
-  
+.fixture-tile{
+  justify-content: center;
+  display: flex;
 }
+
 .gameweek-tile > h2 {
   justify-content: left;
   color:black;
