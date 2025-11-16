@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react';
 import { GameweekTile, FixtureTile } from '~/components/gameweek-tile';
 import { Button } from '~/components/ui/button';
-import { getGameweekData } from '~/data';
 import { type Season } from '~/types';
 export default function LandingPage() {
 
-    const gameweekLength = 38;
+    const gameweekLength = 9;
     const seasons = Array.from<Season>(["2024_2025", "2025_2026"]);
     const [ curSeason, setCurSeason ] = useState<Season>("2025_2026");
 
@@ -22,11 +21,10 @@ export default function LandingPage() {
                 <div className='homepage'> 
                 {
                     Array.from({length: gameweekLength }, (_, i) => (
-                    <GameweekTile gameweek={i+1} key={i+1} season={curSeason}>
+                        <GameweekTile gameweek={i+1} key={i+1} season={curSeason}>
                     </GameweekTile> 
                     ))
-                };
-                    <FixtureTile gameweek={1} season={'2025_2026'}></FixtureTile>
+                }
                 </div>
             </div>
         </div>
