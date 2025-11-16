@@ -51,3 +51,4 @@ export type Fixtures = {
     awaygoals: number,
     finished: boolean;
 };
+

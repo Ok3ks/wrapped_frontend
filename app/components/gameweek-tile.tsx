@@ -63,7 +63,7 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
 
     const gameweekData = useCallback( async () => {
         try {
-        const response = await getGameweekData(gameweek, season)
+            const response = await getGameweekData(gameweek, season)
         setData(response as Players[]);
         } catch(e) {
             console.log(e);
@@ -117,7 +117,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
     const fixtureData = useCallback( async () => {
         try {
-        const response = await getFixturesData(gameweek, "2025_2026")
+        const response = await getFixturesData(gameweek, season)
         setData(response as Fixtures[]);
 
         } catch(e) {

@@ -1,15 +1,16 @@
-import { useCallback, useState } from 'react';
 import { GameweekTile, FixtureTile } from '~/components/gameweek-tile';
 import { Button } from '~/components/ui/button';
+import { useSeasonStore } from '~/store';
+import { updateSeason } from '~/store';
 import { type Season } from '~/types';
 export default function LandingPage() {
 
-    const gameweekLength = 9;
+    const gameweekLength = useSeasonStore((state:any ) => state.gameweekLength);
     const seasons = Array.from<Season>(["2024_2025", "2025_2026"]);
-    const [ curSeason, setCurSeason ] = useState<Season>("2025_2026");
+    const curSeason = useSeasonStore((state:any ) => state.curSeason)
 
     return (
-    
+       
         <div className='header'>
             <div className={`justify-center flex grid-rows-${seasons.length} gap-${seasons.length}`}>
             {
@@ -17,11 +18,11 @@ export default function LandingPage() {
                         `
                         border-2 rounded-[15px] p-2 h-10 box-border overflow-y-hidden hover:text-white
                         ${season == curSeason
-                            ? "bg-[#ffd700] border-[#ffd700] text-black"
-                            : "bg-white border-[#ffd700] text-black"
+                            ? "bg-white border-[#ffd700] text-black"
+                            :  "bg-[#ffd700] border-[#ffd700] text-black"
                         }
                         `} onClick={() => {
-                            setCurSeason(season);
+                            updateSeason(season);
                         }
                         }> {season} </Button>
                     )

@@ -1,4 +1,4 @@
-import type { Season } from '~/types';
+import type { Season } from './types';
 
 
 
@@ -20,7 +20,6 @@ export async function getGameweekData(gameweek:number, year:Season) : Promise<an
 }
 
 export async function getFixturesData(gameweek:number, year:Season) : Promise<any> {
-    // change to gameweek fixtures
     const response = await fetch(`https://storage.googleapis.com/${year}/${gameweek}_fixture.json`, {
         method: "GET",
         headers: {
