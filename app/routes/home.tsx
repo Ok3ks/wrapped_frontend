@@ -13,7 +13,17 @@ export default function LandingPage() {
         <div className='header'>
             <div className={`justify-center flex grid-rows-${seasons.length} gap-${seasons.length}`}>
             {
-                   seasons.map((season, index, array) => <Button key={season} className='button-filter' onClick={() => setCurSeason(season)}> {season} </Button>
+                   seasons.map((season, index, array) => <Button key={season} className={
+                        `
+                        border-2 rounded-[15px] p-2 h-10 box-border overflow-y-hidden hover:text-white
+                        ${season == curSeason
+                            ? "bg-[#ffd700] border-[#ffd700] text-black"
+                            : "bg-white border-[#ffd700] text-black"
+                        }
+                        `} onClick={() => {
+                            setCurSeason(season);
+                        }
+                        }> {season} </Button>
                     )
             }
             </div>
