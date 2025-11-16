@@ -49,17 +49,7 @@ export const columns: ColumnDef<Players>[] = [
 
     {
         accessorKey: "player_name",
-        // header: "Player name",
-        cell: Cell,
-        header: Header,
-        meta: {
-            style: {
-              position: 'sticky',
-              left: 0,
-              background: 'white',
-              zIndex: 2,
-            }
-          }
+        header: "Player Name"
     },
     {
         accessorKey: "minutes",
@@ -211,10 +201,6 @@ export const columns: ColumnDef<Players>[] = [
     {
         accessorKey: "penalties_saved",
         header: "Penalties Saved",
-    },
-    {
-        accessorKey: "player_name",
-        header: "Player Name",
     },
     {
         accessorKey: "position",
