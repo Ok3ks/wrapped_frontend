@@ -87,7 +87,7 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
                         <CarouselContent>
                         <CarouselItem>
                             <div className="fixture-tile">
-                            <FixtureTile key={gameweek+1} gameweek={gameweek} season={'2025_2026'}></FixtureTile>
+                            <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
                             </div>
                         </CarouselItem>
                         <CarouselItem>

@@ -8,14 +8,7 @@ export default function LandingPage() {
 
     const gameweekLength = useSeasonStore((state:any ) => state.gameweekLength);
     const seasons = Array.from<Season>(["2024_2025", "2025_2026"]);
-    
-    useEffect(() => {
-        const lastSeason = window.localStorage.getItem('season');
-        console.log(lastSeason)
-        if (lastSeason) {
-            updateSeason(seasons.find(n => String(n) == lastSeason) as Season);
-        }
-    }, []);
+
     
     const curSeason = useSeasonStore<Season>((state:any ) => state.curSeason);
 
@@ -28,8 +21,8 @@ export default function LandingPage() {
                         `
                         border-2 rounded-[15px] p-2 h-10 box-border overflow-y-hidden hover:text-white
                         ${season == curSeason
-                            ? "bg-white border-[#ffd700] text-black"
-                            :  "bg-[#ffd700] border-[#ffd700] text-black"
+                            ? "bg-[#ffd700] border-[#ffd700] text-black"
+                            : "bg-white border-[#ffd700] text-black"
                         }
                         `} onClick={() => {
                             updateSeason(season);

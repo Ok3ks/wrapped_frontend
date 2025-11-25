@@ -14,11 +14,10 @@ export const useSeasonStore = create<State>((set) => ({
     gameweekLength: 38,
     curGameweek: 1,
     curTeam: null,
-    curSeason: '2024_2025',
+    curSeason: '2025_2026',
   }));
 
 export const updateSeason = (season: Season) => {
   useSeasonStore.setState({ curSeason: season });
-  window.localStorage.setItem("curSeason", String(season))
 };
 export const updateGameweekLength = (gameweekLength: number) => useSeasonStore.setState({ gameweekLength: gameweekLength})
