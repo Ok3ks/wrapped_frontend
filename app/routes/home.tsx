@@ -3,11 +3,21 @@ import { Button } from '~/components/ui/button';
 import { useSeasonStore } from '~/store';
 import { updateSeason } from '~/store';
 import { type Season } from '~/types';
+import { useEffect } from 'react';
 export default function LandingPage() {
 
     const gameweekLength = useSeasonStore((state:any ) => state.gameweekLength);
     const seasons = Array.from<Season>(["2024_2025", "2025_2026"]);
-    const curSeason = useSeasonStore((state:any ) => state.curSeason)
+    
+    useEffect(() => {
+        const lastSeason = window.localStorage.getItem('season');
+        console.log(lastSeason)
+        if (lastSeason) {
+            updateSeason(seasons.find(n => String(n) == lastSeason) as Season);
+        }
+    }, []);
+    
+    const curSeason = useSeasonStore<Season>((state:any ) => state.curSeason);
 
     return (
        
