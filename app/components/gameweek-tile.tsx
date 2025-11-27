@@ -10,8 +10,6 @@ import {
     CarouselNext,
     CarouselPrevious,
   } from "~/components/ui/carousel"
-import { Button } from "./ui/button";
-import { updateGameweek, useSeasonStore } from "~/store";
 
 interface gameweekTileProps {
     gameweek: number,
@@ -62,7 +60,6 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
         total_points: 0,
         yellow_cards: 0,
     }]);
-    const toggleSummary = useSeasonStore((state:any) => state.toggleSummary);
 
     const gameweekData = useCallback( async () => {
         try {
@@ -99,18 +96,6 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
                     </CarouselContent>
                     <CarouselNext/>
                     </Carousel>
-                    <Button key={gameweek} className={
-                        `
-                        border-2 rounded-[15px] p-2 h-10 box-border overflow-y-hidden hover:text-white 
-                        ${useSeasonStore<boolean>((state:any) => state.summary) == true
-                            ? "bg-[#ffd700] border-[#ffd700] text-black"
-                            : "bg-white border-[#ffd700] text-black"
-                        }
-                        `} onClick={() => {
-                            updateGameweek(gameweek);
-                            toggleSummary();
-                        }
-                        }> Get Text Summary </Button>
             </div>
     );
 }
@@ -122,7 +107,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
         home: "",
         away: "",
         gameweek: 2,
-        season: "2025_2026",
+        season: "2024_2025",
         draw: false,
         date: new Date("1995-12-17T03:24:00"),
         homegoals: 0,

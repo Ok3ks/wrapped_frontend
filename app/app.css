@@ -209,24 +209,3 @@ body {
   margin: 10px;
   padding: 5px
 }
-
-
-/* Summary Tile */
-
-.summary-tile {
-  border: 2px solid #ffd700;
-  border-radius: 15px;
-  padding: 80px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  flex-direction: row;
-  margin-bottom: 10px;
-  background-color: #fff;
-  box-sizing: border-box;
-  overflow-y: hidden;
-  /* height: 550px; */
-  width: 500px;
-  transition:
-    height 4s,
-    background-color 3s,
-}
