@@ -205,11 +205,6 @@ export const columns: ColumnDef<Players>[] = [
     {
         accessorKey: "position",
         header: "Position",
-        filterFn: "equals"
-        // filterFn: (row, columnId, value) => {
-            // Custom date range logic
-            
-            // return value == position; //react to state set on each button;
     },
     {
         accessorKey: "recoveries",
@@ -256,15 +251,27 @@ export function DataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {
-    const [sorting, setSorting] = useState<SortingState>([]);
+    const [sorting, setSorting] = useState<SortingState>([
+        {
+            id: 'total_points', //you should get autocomplete for the `id` and `desc` properties
+            desc: true,
+          }
+    ]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [globalFilter, setGlobalFilter] = useState('');
     const [pagination, setPagination] = useState({
-        pageIndex: 0, //initial page index
-        pageSize: 5, //default page size
+        pageIndex: 0,
+        pageSize: 6,
     });
-    const [position, setPosition] = useState<Position>('ALL');
-    const positions = Array.from<Position>(["GK", "DEF", "MID", "FWD", "ALL"]);
+    const [curPosition, setCurPosition] = useState<string>('');
+    const positions = ["GK", "DEF", "MID", "FWD", "ALL"];
+    const posMap = new Map<String, string>([
+        ["GK","Goalkeeper"], 
+        ["DEF", "Defender"], 
+        ["MID", "Midfielder"], 
+        ["FWD", "Forward"],
+        ["ALL", ""]
+    ])
 
 function multiColumnFilter<TData extends Players & RowData>(
   row: { original: TData },
@@ -274,8 +281,9 @@ function multiColumnFilter<TData extends Players & RowData>(
   const search = filterValue.toLowerCase();
 
   return (
+    row.original.position.toLowerCase().includes(search) ||
     row.original.player_name.toLowerCase().includes(search) ||
-    row.original.team.toLowerCase().includes(search)
+    row.original.team.toLowerCase().includes(search) 
   );
 }
 
@@ -294,16 +302,16 @@ function multiColumnFilter<TData extends Players & RowData>(
         onPaginationChange: setPagination,
         rowCount: data.length - 1,
         state: {
-            sorting,
+            sorting: sorting,
             globalFilter: globalFilter,
             pagination: pagination,
             
-        }
+        },    
     })
 
     return (
         <div>
-            <div className={`flex items-center py-4 justify-left flex grid-rows-${positions.length} gap-${positions.length}`}>
+            <div className={`flex items-center py-4 justify-left flex grid-rows-${positions.length} gap-2`}>
                 <Input
                     placeholder="Search"
                     value={globalFilter
@@ -315,7 +323,10 @@ function multiColumnFilter<TData extends Players & RowData>(
                     className="max-w-sm"
                     />
             {
-                positions.map((position, index, array) => <Button key={position} className='button-filter' onClick={() => setPosition(position)}> {position} </Button>)
+                positions.map((position, index, array) => <Button key={position} className="button-filter" onClick={() => {
+                    setCurPosition(position);
+                    setGlobalFilter(posMap.get(position) ?? "")
+                }}> {position} </Button>)
             }
             </div>
         <div className="gameweek-table">
