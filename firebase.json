@@ -7,9 +7,12 @@
     ],
     "trailingSlash":false,
     "cleanUrls":true,
-    "public": "app",
+    "public": "build/client",
     "frameworksBackend": {
       "region": "europe-west1"
-    }
+    },
+    "rewrites": [
+      { "source": "**", "destination": "/index.html" }
+    ]
   }
 }
