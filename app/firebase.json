@@ -1,0 +1,15 @@
+{
+  "hosting": {
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "trailingSlash":false,
+    "cleanUrls":true,
+    "public": "app",
+    "frameworksBackend": {
+      "region": "europe-west1"
+    }
+  }
+}
