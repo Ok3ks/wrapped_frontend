@@ -198,9 +198,13 @@ body {
   color: black
 }
 
+.button-filter {
+  background-color: gray;
+  color: black;
+}
+
 .button-filter:hover {
-  background-color: black;
-  color: white;
+  background-color: #ffd700;
 }
 
 /* ///add css for hover */
