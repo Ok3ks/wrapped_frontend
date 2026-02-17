@@ -9,7 +9,7 @@ type State = {
     gameweekLength: number
   }
   
-export const useSeasonStore = create<State>((set) => ({
+export const useAppStore = create<State>((set) => ({
 
     gameweekLength: 38,
     curGameweek: 1,
@@ -18,6 +18,9 @@ export const useSeasonStore = create<State>((set) => ({
   }));
 
 export const updateSeason = (season: Season) => {
-  useSeasonStore.setState({ curSeason: season });
+  useAppStore.setState({ curSeason: season });
 };
-export const updateGameweekLength = (gameweekLength: number) => useSeasonStore.setState({ gameweekLength: gameweekLength})
+export const updateGameweek = (gameweek: number) => {
+  useAppStore.setState({ curGameweek: gameweek });
+};
+export const updateGameweekLength = (gameweekLength: number) => useAppStore.setState({ gameweekLength: gameweekLength})

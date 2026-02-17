@@ -1,16 +1,21 @@
+import { ArrowLeftCircle, ArrowRightCircle, Minus, MoveLeft, MoveRight, Plus } from 'lucide-react';
 import { GameweekTile, FixtureTile } from '~/components/gameweek-tile';
 import { Button } from '~/components/ui/button';
-import { useSeasonStore } from '~/store';
+import { updateGameweek, useAppStore } from '~/store';
 import { updateSeason } from '~/store';
 import { type Season } from '~/types';
-import { useEffect } from 'react';
 export default function LandingPage() {
 
-    const gameweekLength = useSeasonStore((state:any ) => state.gameweekLength);
+    const { gameweekLength, curSeason, curGameweek  } = useAppStore();
     const seasons = Array.from<Season>(["2024_2025", "2025_2026"]);
 
-    
-    const curSeason = useSeasonStore<Season>((state:any ) => state.curSeason);
+    const handlePrev = () => {
+        updateGameweek( Math.max(1, curGameweek - 1));
+    };
+
+    const handleNext = () => {
+        updateGameweek(Math.min(38, curGameweek + 1)); // 38 gameweeks in a season
+    };
 
     return (
        
@@ -33,12 +38,16 @@ export default function LandingPage() {
             </div>
             <div className="flex grid-cols-2 gap-4">
                 <div className='homepage'> 
-                {
-                    Array.from({length: gameweekLength }, (_, i) => (
-                        <GameweekTile gameweek={i+1} key={i+1} season={curSeason}>
-                    </GameweekTile> 
-                    ))
-                }
+                        <div className='gameweek-nav'>
+                            <Button className="nav-btn" onClick={handlePrev} disabled={curGameweek === 1}>
+                                <ArrowLeftCircle />
+                            </Button>
+                            <div className="gameweek-nav-label">Gameweek {curGameweek}</div>
+                            <Button className="nav-btn" onClick={handleNext} disabled={curGameweek === 38}>
+                                <ArrowRightCircle />
+                            </Button>
+                        </div>
+                        <GameweekTile gameweek={curGameweek} season={curSeason} />
                 </div>
             </div>
         </div>
