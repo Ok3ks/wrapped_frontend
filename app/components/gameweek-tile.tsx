@@ -54,6 +54,8 @@ import { useIsMobile } from "~/components/ui/use-mobile";
 
 
 import { teamAbbreviations } from "~/lib/team-abbreviations";
+import { PlayerChartsDashboard } from "./player-dashboard";
+import { TeamChartsDashboard } from "./team-dashboard";
 
 
 
@@ -336,14 +338,22 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
     return (
 
 
+        <>
         <div className="gameweek-tile">
             <h3>Fixtures</h3>
-        <div className="fixture-tile">
-        <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
-        </div> 
-        <h3>Players</h3>
-        <DataTable columns={columns} data={data} />
-        </div> 
+            <div className="fixture-tile">
+                <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
+            </div> 
+            <h3>Players</h3>
+                <DataTable columns={columns} data={data} />
+        </div>
+    
+        {data && <div>
+        <PlayerChartsDashboard data={data} />
+        <TeamChartsDashboard data={data} />
+
+        </div>}
+        </>
 
 
 

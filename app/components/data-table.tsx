@@ -28,21 +28,7 @@ import {
 } from "../components/ui/table"
 import type { Players, Position } from '~/types'
 
-// Custom cell renderer
-function Cell({ cell }: { cell: any }) {
-    const style = cell.column.columnDef.meta?.style ?? {};
-    return <div style={{ padding: '8px', ...style }}>{cell.getValue()}</div>;
-  }
-  
-  // Custom header renderer applying sticky styles if present
-function Header({ header }: { header: any }) {
-    const style = header.column.columnDef.meta?.style ?? {};
-    return (
-      <div style={{ fontWeight: 'bold', padding: '8px', backgroundColor: '#ddd', ...style }}>
-        {header.isPlaceholder ? null : header.column.columnDef.header}
-      </div>
-    );
-  }
+
 export const columns: ColumnDef<Players>[] = [
 
     ///State Management
@@ -354,7 +340,7 @@ function multiColumnFilter<TData extends Players & RowData>(
                     ))}
                 </TableHeader>
 
-                <TableBody>
+                <TableBody className="font-mono">
                     {table.getRowModel().rows?.length 
                     ? (
                         table.getRowModel().rows.map((row) => (
