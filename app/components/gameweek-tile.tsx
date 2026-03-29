@@ -54,6 +54,8 @@ import { useIsMobile } from "~/components/ui/use-mobile";
 
 
 import { teamAbbreviations } from "~/lib/team-abbreviations";
+import { PlayerChartsDashboard } from "./player-dashboard";
+import { TeamChartsDashboard } from "./team-dashboard";
 
 
 
@@ -309,7 +311,7 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
 
 
 
-    },  [season]);
+    },  [season, gameweek]);
 
 
 
@@ -336,72 +338,22 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
     return (
 
 
+        <>
+        <div className="gameweek-tile">
+            <h3>Fixtures</h3>
+            <div className="fixture-tile">
+                <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
+            </div> 
+            <h3>Players</h3>
+                <DataTable columns={columns} data={data} />
+        </div>
+    
+        {data && <div>
+        <PlayerChartsDashboard data={data} />
+        <TeamChartsDashboard data={data} />
 
-            <div className="gameweek-tile">
-
-
-
-                <h2> Gameweek {gameweek}</h2>
-
-
-
-                    <Carousel>
-
-
-
-                    <CarouselPrevious/>
-
-
-
-                        <CarouselContent>
-
-
-
-                        <CarouselItem>
-
-
-
-                            <div className="fixture-tile">
-
-
-
-                            <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
-
-
-
-                            </div>
-
-
-
-                        </CarouselItem>
-
-
-
-                        <CarouselItem>
-
-
-
-                            <DataTable columns={columns} data={data} />
-
-
-
-                        </CarouselItem>
-
-
-
-                    </CarouselContent>
-
-
-
-                    <CarouselNext/>
-
-
-
-                    </Carousel>
-
-
-
-            </div>
+        </div>}
+        </>
 
 
 
@@ -561,7 +513,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
 
 
-        <div className="px-2 md:px-12 justify-between">
+        <div className="px-2 md:px-12 justify-between fixture-tile">
 
 
 
@@ -628,60 +580,38 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
                         return (
 
 
+                            <div key={index} className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-[var(--surface-2)] border border-[rgba(255,215,0,0.08)] hover:border-[rgba(255,215,0,0.25)] transition-all duration-200 text-[var(--text-primary)]">
 
-                            
-
-
-
-                            <h3 key={index}>
-
-
-
-                            <div className="h-9 flex flex-wrap justify-between items-center text-[0.6rem] md:text-xs"> 
-
-
-
-                                <span className="justify-between bg-gray-200">{tempDate}</span>
-
-
-
-                                <span className={ draw ? 'bg-sky-200 px-0.5 font-thin' : !homeWin ? 'bg-sky-200 px-0.5 font-thin' : 'bg-sky-200 px-0.5 font-medium'}>{isMobile ? teamAbbreviations[item.home] || item.home.substring(0,3).toUpperCase() : item.home}</span> 
-
-
-
-                                <span className={item.finished ? 'bg-green-500' : 'bg-yellow-500'}>
-
-
-
-                                    <span className="px-0.5">{item.homegoals} 
-
-
-
-                                    -  
-
-
-
-                                    {item.awaygoals}
-
-
-
-                                    </span>
-
-
-
+                                {/* Date */}
+                                <span className="text-[0.6rem] text-[var(--text-secondary)] w-10 shrink-0">
+                                {tempDate}
                                 </span>
 
+                                {/* Home Team */}
+                                <span className={`text-xs truncate text-right w-20 shrink-0 ${
+                                draw ? 'font-normal opacity-60' : homeWin ? 'font-bold text-[var(--gold)]' : 'font-normal opacity-60'
+                                }`}>
+                                {isMobile ? teamAbbreviations[item.home] || item.home.substring(0, 3).toUpperCase() : item.home}
+                                </span>
 
+                                {/* Score */}
+                                <span className={`text-xs font-mono font-semibold px-2 py-0.5 rounded shrink-0 ${
+                                item.finished ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                                }`}>
+                                {item.homegoals} – {item.awaygoals}
+                                </span>
 
-                                <span className={ draw ? 'bg-sky-200 px-0.5 font-thin' : homeWin ? 'bg-sky-200 px-0.5 font-thin' : 'bg-sky-200 px-0.5 font-medium' }>{isMobile ? teamAbbreviations[item.away] || item.away.substring(0,3).toUpperCase() : item.away}</span> 
+                                {/* Away Team */}
+                                <span className={`text-xs truncate text-left w-20 shrink-0 ${
+                                draw ? 'font-normal opacity-60' : !homeWin ? 'font-bold text-[var(--gold)]' : 'font-normal opacity-60'
+                                }`}>
+                                {isMobile ? teamAbbreviations[item.away] || item.away.substring(0, 3).toUpperCase() : item.away}
+                                </span>
 
+                                {/* Status pip */}
+                                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.finished ? 'bg-emerald-400' : 'bg-amber-400'}`} />
 
-
-                            </div>
-
-
-
-                        </h3> 
+</div>
 
 
 
