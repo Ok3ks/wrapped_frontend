@@ -1,277 +1,285 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { InfoIcon, ArrowRight, ExternalLink, FileBarChart, BarChart2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, ExternalLink, FileBarChart, BarChart2, HelpCircle } from "lucide-react";
 
 const ReportPage: React.FC = () => {
   const [fplId, setFplId] = useState<string>("");
-  const [leagueId, setLeagueId] = useState<string>("");
   const [submittedFplId, setSubmittedFplId] = useState<boolean>(false);
-  const [submittedLeagueId, setSubmittedLeagueId] = useState<boolean>(false);
 
   const handleFplIdSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Validate that ID is numeric
     if (fplId && /^\d+$/.test(fplId)) {
       setSubmittedFplId(true);
-      // Here you would typically make an API call with the FPL ID
       console.log("Submitted FPL ID:", fplId);
     }
   };
 
-  const handleLeagueIdSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Validate that ID is numeric
-    if (leagueId && /^\d+$/.test(leagueId)) {
-      setSubmittedLeagueId(true);
-      // Here you would typically make an API call with the League ID
-      console.log("Submitted League ID:", leagueId);
-    }
-  };
-
-  const resetForm = (type: "fpl" | "league") => {
-    if (type === "fpl") {
-      setFplId("");
-      setSubmittedFplId(false);
-    } else {
-      setLeagueId("");
-      setSubmittedLeagueId(false);
-    }
-  };
-
   return (
-    <div className="container mx-auto py-8 px-4 bg-white text-[#1a1a1a]">
-      <div className="flex justify-center mb-8">
-        <h1 className="text-3xl font-bold flex items-center gap-3 text-[#1a1a1a]">
-          <FileBarChart size={32} className="text-[#1a1a1a]" />
-          Fantasy Premier League Reports
-        </h1>
-      </div>
+    <div className="min-h-full bg-gray-50 text-gray-900 relative overflow-hidden">
+      {/* Corner flags */}
+      <svg className="absolute top-0 left-0 w-10 h-10 text-gray-300 sm:w-14 sm:h-14" viewBox="0 0 40 40">
+        <path d="M 2 2 Q 2 2 2 2 L 2 18" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        <polygon points="2,2 14,5 2,10" fill="currentColor" opacity="0.4" />
+        <path d="M 0 0 Q 8 0 8 8" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.3" />
+      </svg>
+      <svg className="absolute top-0 right-0 w-10 h-10 text-gray-300 sm:w-14 sm:h-14" viewBox="0 0 40 40">
+        <path d="M 38 2 L 38 18" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        <polygon points="38,2 26,5 38,10" fill="currentColor" opacity="0.4" />
+        <path d="M 40 0 Q 32 0 32 8" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.3" />
+      </svg>
+      <svg className="absolute bottom-0 left-0 w-10 h-10 text-gray-300 sm:w-14 sm:h-14" viewBox="0 0 40 40">
+        <path d="M 2 38 L 2 22" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        <polygon points="2,38 14,35 2,30" fill="currentColor" opacity="0.4" />
+        <path d="M 0 40 Q 8 40 8 32" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.3" />
+      </svg>
+      <svg className="absolute bottom-0 right-0 w-10 h-10 text-gray-300 sm:w-14 sm:h-14" viewBox="0 0 40 40">
+        <path d="M 38 38 L 38 22" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        <polygon points="38,38 26,35 38,30" fill="currentColor" opacity="0.4" />
+        <path d="M 40 40 Q 32 40 32 32" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.3" />
+      </svg>
 
-      {/* Main content - styled with light theme */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6" style={{ height: "auto", maxWidth: "900px", margin: "0 auto 24px" }}>
-        <h2 className="text-xl font-bold mb-4 text-[#1a1a1a]">GENERATE YOUR FPL REPORT</h2>
+      <div className="mx-auto px-3 py-6 sm:px-6 sm:py-10 max-w-[960px]">
 
-        <p className="text-center mb-6 text-[#666666]">
-          Get detailed insights about your FPL team performance or analyze your entire league.
-        </p>
+        {/* Back link */}
+        <Link to="/" className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-900 mb-6 no-underline uppercase tracking-wider font-medium">
+          <ArrowLeft size={12} /> Dashboard
+        </Link>
 
-        <Tabs defaultValue="fplId" className="mb-6">
-          <TabsList className="w-full mb-6 bg-[#FFF9E5] border border-[#f0f0f0] rounded-lg overflow-hidden">
-            <TabsTrigger
-              value="fplId"
-              className="w-1/2 text-[#333333] data-[state=active]:bg-[#FFEEB3] data-[state=active]:text-[#333333] data-[state=active]:font-semibold"
-            >
-              Manager Report
-            </TabsTrigger>
-            <TabsTrigger
-              value="leagueId"
-              className="w-1/2 text-[#777777] data-[state=active]:bg-[#FFEEB3] data-[state=active]:text-[#333333] data-[state=active]:font-semibold"
-            >
-              League Report
-            </TabsTrigger>
-          </TabsList>
+        {/* Hero — combined ID entry + guide */}
+        <div className="bg-white border border-gray-200 mb-10 sm:mb-14">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {/* Left: Form */}
+            <div className="p-5 sm:p-8 flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-1">
+                <FileBarChart size={20} />
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Manager Report</span>
+              </div>
+              <h1 className="text-2xl font-bold mb-4 sm:text-3xl sm:mb-6">
+                Generate your<br />FPL report
+              </h1>
 
-          {/* FPL ID Tab */}
-          <TabsContent value="fplId" className="mt-0">
-            <div className="bg-[#272B3F] p-6 rounded-lg border border-[#353a52]">
               {!submittedFplId ? (
-                <>
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-white">
-                    <span className="text-[#ffc800]">•</span> Enter your FPL Manager ID
-                  </h3>
-                  <form onSubmit={handleFplIdSubmit}>
-                    <div className="mb-6">
-                      <label htmlFor="fplId" className="block mb-2 text-[#aeb2c8] font-medium">
-                        FPL ID
-                      </label>
-                      <Input
-                        id="fplId"
-                        type="text"
-                        value={fplId}
-                        onChange={(e) => setFplId(e.target.value)}
-                        placeholder="e.g., 1234567"
-                        className="w-full bg-[#1e2235] border-[#4a4f66] focus:border-[#ffc800] text-white"
-                        required
-                        pattern="[0-9]+"
-                        title="Please enter a valid numeric ID"
-                      />
-                    </div>
-                    <Button
+                <form onSubmit={handleFplIdSubmit}>
+                  <label htmlFor="fplId" className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">
+                    Enter your Manager ID
+                  </label>
+                  <div className="flex gap-0">
+                    <input
+                      id="fplId"
+                      type="text"
+                      value={fplId}
+                      onChange={(e) => setFplId(e.target.value)}
+                      placeholder="1234567"
+                      className="flex-1 h-11 px-4 text-base bg-white border-2 border-r-0 border-gray-900 text-gray-900 placeholder:text-gray-300 outline-none focus:border-gray-900 font-mono"
+                      required
+                      pattern="[0-9]+"
+                      title="Please enter a valid numeric ID"
+                    />
+                    <button
                       type="submit"
-                      className="w-full bg-[#505671] hover:bg-[#5b6382] text-white border-none transition-colors"
+                      className="h-11 px-5 bg-gray-900 text-white text-sm font-semibold uppercase tracking-wider hover:bg-gray-700 disabled:opacity-20 disabled:cursor-not-allowed transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
                       disabled={!fplId || !/^\d+$/.test(fplId)}
                     >
-                      Generate Manager Report
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </form>
-                </>
+                      Go <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </form>
               ) : (
-                <div className="text-center py-4">
-                  <BarChart2 size={48} className="text-[#ffc800] mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold mb-4 text-white">Processing your report</h3>
-                  <p className="mb-6 text-white">
-                    We're generating a personalized report for FPL ID: <span className="font-bold text-[#ffc800]">{fplId}</span>
-                  </p>
-                  <p className="mb-6 text-[#aeb2c8]">
-                    This might take a few moments. The report will include your season performance,
-                    best players, transfer analysis, and more.
-                  </p>
-                  <Button
-                    onClick={() => resetForm("fpl")}
-                    className="bg-[#3a3f55] hover:bg-[#45495e] text-white border border-[#4a4f66] transition-colors"
-                  >
-                    Enter a different ID
-                  </Button>
-                </div>
-              )}
-            </div>
-          </TabsContent>
-
-          {/* League ID Tab */}
-          <TabsContent value="leagueId" className="mt-0">
-            <div className="bg-[#272B3F] p-6 rounded-lg border border-[#353a52]">
-              {!submittedLeagueId ? (
-                <>
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-white">
-                    <span className="text-[#ffc800]">•</span> Enter your FPL League ID
-                  </h3>
-                  <form onSubmit={handleLeagueIdSubmit}>
-                    <div className="mb-6">
-                      <label htmlFor="leagueId" className="block mb-2 text-[#aeb2c8] font-medium">
-                        League ID
-                      </label>
-                      <Input
-                        id="leagueId"
-                        type="text"
-                        value={leagueId}
-                        onChange={(e) => setLeagueId(e.target.value)}
-                        placeholder="e.g., 123456"
-                        className="w-full bg-[#1e2235] border-[#4a4f66] focus:border-[#ffc800] text-white"
-                        required
-                        pattern="[0-9]+"
-                        title="Please enter a valid numeric ID"
-                      />
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <BarChart2 size={28} className="text-gray-900 shrink-0" />
+                    <div>
+                      <p className="font-bold text-lg">Processing</p>
+                      <p className="text-gray-500 text-sm">FPL ID: <span className="font-mono font-bold text-gray-900">{fplId}</span></p>
                     </div>
-                    <Button
-                      type="submit"
-                      className="w-full bg-[#505671] hover:bg-[#5b6382] text-white border-none transition-colors"
-                      disabled={!leagueId || !/^\d+$/.test(leagueId)}
-                    >
-                      Generate League Report
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </form>
-                </>
-              ) : (
-                <div className="text-center py-4">
-                  <BarChart2 size={48} className="text-[#ffc800] mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold mb-4 text-white">Processing your league report</h3>
-                  <p className="mb-6 text-white">
-                    We're generating a comprehensive report for League ID: <span className="font-bold text-[#ffc800]">{leagueId}</span>
+                  </div>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Generating season performance, transfer analysis, captain choices, and more.
                   </p>
-                  <p className="mb-6 text-[#aeb2c8]">
-                    This might take a few moments. The report will include league standings, manager comparisons,
-                    popular player choices, and more.
-                  </p>
-                  <Button
-                    onClick={() => resetForm("league")}
-                    className="bg-[#3a3f55] hover:bg-[#45495e] text-white border border-[#4a4f66] transition-colors"
+                  <button
+                    onClick={() => { setFplId(""); setSubmittedFplId(false); }}
+                    className="text-sm font-semibold text-gray-900 underline underline-offset-2 hover:text-gray-600 cursor-pointer"
                   >
-                    Enter a different league ID
-                  </Button>
+                    Try a different ID
+                  </button>
                 </div>
               )}
             </div>
-          </TabsContent>
-        </Tabs>
-      </div>
 
-      {/* Guide Section - styled for light theme */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6" style={{ height: "auto", maxWidth: "900px", margin: "0 auto 24px" }}>
-        <h2 className="text-xl font-bold mb-4 text-[#1a1a1a]">HOW TO FIND YOUR IDS</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h3 className="font-bold text-lg mb-4 text-[#ffc800] flex items-center gap-2 border-b border-[#f0f0f0] pb-2">
-              <span className="w-6 h-6 rounded-full bg-[#ffc800] text-white flex items-center justify-center text-sm">1</span>
-              Finding your FPL Manager ID
-            </h3>
-            <ol className="list-decimal pl-5 space-y-3 text-[#666666]">
-              <li>Log in to the <a href="https://fantasy.premierleague.com/" target="_blank" rel="noopener noreferrer" className="text-[#ffc800] underline inline-flex items-center gap-1">Official FPL website <ExternalLink className="h-3 w-3" /></a></li>
-              <li>Click on the "Points" tab</li>
-              <li>Look at your browser's address bar, the URL will be something like:</li>
-            </ol>
-            <div className="bg-[#14171f] p-3 rounded-md my-3 font-mono text-sm text-[#aaaaaa] break-all">
-              https://fantasy.premierleague.com/entry/<span className="text-[#ffc800] font-bold">1234567</span>/event/8
+            {/* Right: How-to guide */}
+            <div className="bg-gray-900 text-white p-5 sm:p-8 flex flex-col justify-center">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">How to find your ID</p>
+              <ol className="space-y-2.5 text-sm text-gray-300">
+                <li className="flex gap-2">
+                  <span className="text-white font-bold shrink-0">1.</span>
+                  <span>
+                    Go to{" "}
+                    <a href="https://fantasy.premierleague.com/" target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-2 inline-flex items-center gap-1">
+                      fantasy.premierleague.com <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-white font-bold shrink-0">2.</span>
+                  <span>Click <strong className="text-white">"Points"</strong></span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-white font-bold shrink-0">3.</span>
+                  <span>Copy the number from the URL</span>
+                </li>
+              </ol>
+              <div className="mt-4 p-3 bg-black/30 font-mono text-xs break-all text-gray-500 border border-gray-700 sm:text-sm">
+                /entry/<span className="text-white font-bold">1234567</span>/event/8
+              </div>
             </div>
-            <p className="text-[#666666]">The highlighted number is your FPL Manager ID</p>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-lg mb-4 text-[#ffc800] flex items-center gap-2 border-b border-[#f0f0f0] pb-2">
-              <span className="w-6 h-6 rounded-full bg-[#ffc800] text-white flex items-center justify-center text-sm">2</span>
-              Finding your League ID
-            </h3>
-            <ol className="list-decimal pl-5 space-y-3 text-[#666666]">
-              <li>Log in to the <a href="https://fantasy.premierleague.com/" target="_blank" rel="noopener noreferrer" className="text-[#ffc800] underline inline-flex items-center gap-1">Official FPL website <ExternalLink className="h-3 w-3" /></a></li>
-              <li>Click on the "Leagues" tab</li>
-              <li>Select the league you want to get a report for</li>
-              <li>Look at your browser's address bar, the URL will be something like:</li>
-            </ol>
-            <div className="bg-[#14171f] p-3 rounded-md my-3 font-mono text-sm text-[#aaaaaa] break-all">
-              https://fantasy.premierleague.com/leagues/<span className="text-[#ffc800] font-bold">123456</span>/standings/c
-            </div>
-            <p className="text-[#666666]">The highlighted number is your League ID</p>
           </div>
         </div>
-      </div>
 
-      {/* FAQ Section - styled for light theme */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6" style={{ height: "auto", maxWidth: "900px", margin: "0 auto 24px" }}>
-        <h2 className="text-xl font-bold mb-4 text-[#1a1a1a]">FREQUENTLY ASKED QUESTIONS</h2>
+        {/* Placeholder grid — report sections preview */}
+        <div className="mb-10 sm:mb-14">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Report Preview</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-[#272B3F] p-4 rounded-md border border-[#353a52] transition-all duration-200">
-            <h4 className="font-semibold mb-2 text-[#ffc800]">What information will be in my report?</h4>
-            <p className="text-[#dddddd]">
-              Reports include season performance analysis, transfer history, captain choices, player ownership,
-              and detailed statistics comparing your performance to others.
-            </p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {/* Tall left column */}
+            <div className="col-span-2 row-span-2 bg-white border border-gray-200 p-5 flex flex-col justify-between min-h-[200px] sm:min-h-[280px]">
+              <div>
+                <div className="w-10 h-1 bg-gray-900 mb-3" />
+                <p className="text-sm font-bold uppercase tracking-wider">Season Overview</p>
+                <p className="text-xs text-gray-400 mt-1">Points, rank, and trajectory</p>
+              </div>
+              <div className="flex gap-1 items-end mt-4">
+                {[40, 65, 50, 80, 55, 70, 90, 60, 75, 85, 45, 95].map((h, i) => (
+                  <div key={i} className="flex-1 bg-gray-100" style={{ height: `${h}%`, minHeight: `${h * 0.8}px` }} />
+                ))}
+              </div>
+            </div>
+
+            {/* Top right small cards */}
+            <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
+              <div className="w-8 h-1 bg-gray-900" />
+              <div>
+                <p className="text-2xl font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wider mt-1">Overall Rank</p>
+              </div>
+            </div>
+
+            <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
+              <div className="w-8 h-1 bg-gray-900" />
+              <div>
+                <p className="text-2xl font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wider mt-1">Total Points</p>
+              </div>
+            </div>
+
+            {/* Bottom right small cards */}
+            <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
+              <div className="w-8 h-1 bg-gray-900" />
+              <div>
+                <p className="text-2xl font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wider mt-1">Best GW</p>
+              </div>
+            </div>
+
+            <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
+              <div className="w-8 h-1 bg-gray-900" />
+              <div>
+                <p className="text-2xl font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wider mt-1">Transfers</p>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-[#272B3F] p-4 rounded-md border border-[#353a52] transition-all duration-200">
-            <h4 className="font-semibold mb-2 text-[#ffc800]">How often are reports updated?</h4>
-            <p className="text-[#dddddd]">
-              Reports are generated with the latest data after each gameweek is completed.
-            </p>
-          </div>
+          {/* Second row — wide cards */}
+          <div className="grid grid-cols-1 gap-3 mt-3 sm:grid-cols-3 sm:gap-4 sm:mt-4">
+            <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
+              <div className="w-10 h-1 bg-gray-900 mb-3" />
+              <p className="text-sm font-bold uppercase tracking-wider">Captain Picks</p>
+              <p className="text-xs text-gray-400 mt-1">Your captaincy decisions and hit rates</p>
+              <div className="flex gap-2 mt-4">
+                {[60, 40, 80, 30, 70].map((w, i) => (
+                  <div key={i} className="h-2 bg-gray-100" style={{ width: `${w}%` }} />
+                ))}
+              </div>
+            </div>
 
-          <div className="bg-[#272B3F] p-4 rounded-md border border-[#353a52] transition-all duration-200">
-            <h4 className="font-semibold mb-2 text-[#ffc800]">Can I see past seasons?</h4>
-            <p className="text-[#dddddd]">
-              Currently, reports are available for the 2024/25 and 2025/26 seasons.
-            </p>
-          </div>
+            <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
+              <div className="w-10 h-1 bg-gray-900 mb-3" />
+              <p className="text-sm font-bold uppercase tracking-wider">Transfer History</p>
+              <p className="text-xs text-gray-400 mt-1">Moves, hits, and value changes</p>
+              <div className="flex items-end gap-1 mt-4">
+                {[20, 35, 15, 50, 25, 40, 30, 45].map((h, i) => (
+                  <div key={i} className="flex-1 bg-gray-100" style={{ height: `${h}px` }} />
+                ))}
+              </div>
+            </div>
 
-          <div className="bg-[#272B3F] p-4 rounded-md border border-[#353a52] transition-all duration-200">
-            <h4 className="font-semibold mb-2 text-[#ffc800]">How long does it take to generate a report?</h4>
-            <p className="text-[#dddddd]">
-              Most reports are generated within 15-30 seconds, depending on the amount of data being processed.
-            </p>
+            <div className="bg-[#1a472a] text-white p-0 min-h-[200px] sm:min-h-[240px] relative overflow-hidden">
+              {/* Half pitch SVG */}
+              <svg viewBox="0 0 300 400" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+                {/* Pitch background */}
+                <rect x="0" y="0" width="300" height="400" fill="#1a472a" />
+                {/* Mow stripes */}
+                <rect x="0" y="0" width="300" height="50" fill="#1d5230" />
+                <rect x="0" y="100" width="300" height="50" fill="#1d5230" />
+                <rect x="0" y="200" width="300" height="50" fill="#1d5230" />
+                <rect x="0" y="300" width="300" height="50" fill="#1d5230" />
+
+                {/* Pitch lines */}
+                {/* Outer boundary */}
+                <rect x="15" y="15" width="270" height="370" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
+                {/* Halfway line */}
+                <line x1="15" y1="15" x2="285" y2="15" stroke="rgba(255,255,255,0.35)" strokeWidth="2" />
+                {/* Center circle (half) */}
+                <path d="M 105 15 A 45 45 0 0 1 195 15" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
+                {/* Center spot */}
+                <circle cx="150" cy="15" r="2.5" fill="rgba(255,255,255,0.3)" />
+
+                {/* Penalty box */}
+                <rect x="55" y="280" width="190" height="105" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
+                {/* Goal area (6-yard box) */}
+                <rect x="100" y="340" width="100" height="45" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
+                {/* Penalty arc */}
+                <path d="M 105 280 A 40 40 0 0 0 195 280" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
+                {/* Penalty spot */}
+                <circle cx="150" cy="320" r="2.5" fill="rgba(255,255,255,0.3)" />
+                {/* Goal */}
+                <rect x="125" y="383" width="50" height="4" fill="rgba(255,255,255,0.15)" />
+
+                {/* Player dots — 4-4-2 formation */}
+                {/* GK */}
+                <circle cx="150" cy="360" r="6" fill="rgba(255,255,255,0.7)" />
+                {/* DEF */}
+                <circle cx="60"  cy="280" r="6" fill="rgba(255,255,255,0.5)" />
+                <circle cx="120" cy="270" r="6" fill="rgba(255,255,255,0.5)" />
+                <circle cx="180" cy="270" r="6" fill="rgba(255,255,255,0.5)" />
+                <circle cx="240" cy="280" r="6" fill="rgba(255,255,255,0.5)" />
+                {/* MID */}
+                <circle cx="60"  cy="170" r="6" fill="rgba(255,255,255,0.5)" />
+                <circle cx="120" cy="160" r="6" fill="rgba(255,255,255,0.5)" />
+                <circle cx="180" cy="160" r="6" fill="rgba(255,255,255,0.5)" />
+                <circle cx="240" cy="170" r="6" fill="rgba(255,255,255,0.5)" />
+                {/* FWD */}
+                <circle cx="110" cy="70" r="6" fill="rgba(255,255,255,0.5)" />
+                <circle cx="190" cy="70" r="6" fill="rgba(255,255,255,0.5)" />
+              </svg>
+
+              {/* Label overlay */}
+              <div className="relative z-10 p-4 sm:p-5">
+                <p className="text-xs font-bold uppercase tracking-widest text-white/40">Best XI</p>
+                <p className="text-[10px] text-white/30 mt-0.5">Highest-scoring possible lineup</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex justify-center mt-8 mb-12">
-        <Link to="/">
-          <Button className="bg-[#505671] hover:bg-[#5b6382] text-white border-none transition-colors flex items-center gap-2">
-            Return to Dashboard
-          </Button>
-        </Link>
+        {/* FAQ link */}
+        <div className="border-t border-gray-200 pt-6 sm:pt-8 flex items-center justify-between">
+          <Link to="/faq" className="inline-flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-gray-900 no-underline uppercase tracking-wider">
+            <HelpCircle size={14} /> FAQ
+          </Link>
+          <span className="text-xs text-gray-300">FPL Wrapped</span>
+        </div>
+
       </div>
     </div>
   );

@@ -580,16 +580,16 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
                         return (
 
 
-                            <div key={index} className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-[var(--surface-2)] border border-[rgba(255,215,0,0.08)] hover:border-[rgba(255,215,0,0.25)] transition-all duration-200 text-[var(--text-primary)]">
+                            <div key={index} className="flex items-center justify-between gap-2 px-3 py-2 rounded-none bg-surface-2 border border-gold-subtle hover:border-gold-muted transition-all duration-200 text-text-primary">
 
                                 {/* Date */}
-                                <span className="text-[0.6rem] text-[var(--text-secondary)] w-10 shrink-0">
+                                <span className="text-[0.6rem] text-text-secondary w-10 shrink-0">
                                 {tempDate}
                                 </span>
 
                                 {/* Home Team */}
                                 <span className={`text-xs truncate text-right w-20 shrink-0 ${
-                                draw ? 'font-normal opacity-60' : homeWin ? 'font-bold text-[var(--gold)]' : 'font-normal opacity-60'
+                                draw ? 'font-normal opacity-60' : homeWin ? 'font-bold text-gold' : 'font-normal opacity-60'
                                 }`}>
                                 {isMobile ? teamAbbreviations[item.home] || item.home.substring(0, 3).toUpperCase() : item.home}
                                 </span>
@@ -603,7 +603,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
                                 {/* Away Team */}
                                 <span className={`text-xs truncate text-left w-20 shrink-0 ${
-                                draw ? 'font-normal opacity-60' : !homeWin ? 'font-bold text-[var(--gold)]' : 'font-normal opacity-60'
+                                draw ? 'font-normal opacity-60' : !homeWin ? 'font-bold text-gold' : 'font-normal opacity-60'
                                 }`}>
                                 {isMobile ? teamAbbreviations[item.away] || item.away.substring(0, 3).toUpperCase() : item.away}
                                 </span>

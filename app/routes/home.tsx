@@ -1,65 +1,70 @@
-import { ArrowLeftCircle, ArrowRightCircle, Minus, MoveLeft, MoveRight, Plus, FileBarChart } from 'lucide-react';
-import { GameweekTile, FixtureTile } from '~/components/gameweek-tile';
+import { ArrowLeftCircle, ArrowRightCircle } from 'lucide-react';
+import { GameweekTile } from '~/components/gameweek-tile';
 import { Button } from '~/components/ui/button';
 import { updateGameweek, useAppStore } from '~/store';
 import { updateSeason } from '~/store';
 import { type Season } from '~/types';
-import { Link } from "react-router";
-export default function LandingPage() {
 
-    const { gameweekLength, curSeason, curGameweek  } = useAppStore();
+export default function LandingPage() {
+    const { curSeason, curGameweek } = useAppStore();
     const seasons = Array.from<Season>(["2024_2025", "2025_2026"]);
 
-    const handlePrev = () => {
-        updateGameweek( Math.max(1, curGameweek - 1));
-    };
-
-    const handleNext = () => {
-        updateGameweek(Math.min(38, curGameweek + 1)); // 38 gameweeks in a season
-    };
-
     return (
-       
-        <div className='header'>
-            <div className="flex justify-between items-center w-full mb-4">
-                <div className={`justify-center flex grid-rows-${seasons.length} gap-${seasons.length}`}>
-                {
-                       seasons.map((season, index, array) => <Button key={season} className={
-                            `
-                            border-2 rounded-[15px] p-2 h-10 box-border overflow-y-hidden hover:text-white
-                            ${season == curSeason
-                                ? "bg-[#ffd700] border-[#ffd700] text-black"
-                                : "bg-white border-[#ffd700] text-black"
-                            }
-                            `} onClick={() => {
-                                updateSeason(season);
-                            }
-                            }> {season} </Button>
-                        )
-                }
-                </div>
-                <Link to="/report">
-                    <Button className="bg-[rgba(255,215,0,0.15)] text-[#ffd700] border border-[#ffd700] hover:bg-[rgba(255,215,0,0.25)] flex items-center gap-2">
-                        <FileBarChart size={16} />
-                        Generate FPL Report
-                    </Button>
-                </Link>
-            </div>
-            <div className="flex grid-cols-2 gap-4">
-                <div className='homepage'> 
-                        <div className='gameweek-nav'>
-                            <Button className="nav-btn" onClick={handlePrev} disabled={curGameweek === 1}>
-                                <ArrowLeftCircle />
-                            </Button>
-                            <div className="gameweek-nav-label">Gameweek {curGameweek}</div>
-                            <Button className="nav-btn" onClick={handleNext} disabled={curGameweek === 38}>
-                                <ArrowRightCircle />
-                            </Button>
+        <div className="flex">
+            {/* Sticky gameweek sidebar */}
+            <aside className="hidden md:flex sticky top-[49px] h-[calc(100vh-49px)] w-10 shrink-0 flex-col bg-surface border-r border-gold-border overflow-y-auto gw-sidebar">
+                {Array.from({ length: 38 }, (_, i) => i + 1).map((gw) => (
+                    <button
+                        key={gw}
+                        onClick={() => updateGameweek(gw)}
+                        className={`w-full py-1.5 text-[10px] font-mono font-semibold transition-colors cursor-pointer border-none
+                            ${gw === curGameweek
+                                ? "bg-gold text-surface"
+                                : "text-text-secondary hover:text-text-primary hover:bg-gold-subtle"
+                            }`}
+                    >
+                        {gw}
+                    </button>
+                ))}
+            </aside>
+
+            {/* Main content */}
+            <div className="flex-1 min-w-0 px-3 py-3 sm:px-6 sm:py-4">
+                {/* Season selector + GW nav row */}
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <div className="flex gap-2">
+                        {seasons.map((season) => (
+                            <button
+                                key={season}
+                                className={`px-4 py-1.5 h-8 text-xs font-semibold transition-colors cursor-pointer sm:text-sm sm:h-9 sm:px-5
+                                    ${season === curSeason
+                                        ? "bg-gold border-2 border-gold text-surface hover:bg-gold-soft"
+                                        : "bg-transparent border-2 border-gold-border text-text-secondary hover:border-gold hover:text-text-primary"
+                                    }`}
+                                onClick={() => updateSeason(season)}
+                            >
+                                {season.replace("_", "/")}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Gameweek navigator */}
+                    <div className="flex items-center gap-2 sm:gap-3">
+                        <Button className="nav-btn" onClick={() => updateGameweek(Math.max(1, curGameweek - 1))} disabled={curGameweek === 1}>
+                            <ArrowLeftCircle size={20} />
+                        </Button>
+                        <div className="gameweek-nav-label">
+                            GW <span>{curGameweek}</span>
                         </div>
-                        <GameweekTile gameweek={curGameweek} season={curSeason} />
+                        <Button className="nav-btn" onClick={() => updateGameweek(Math.min(38, curGameweek + 1))} disabled={curGameweek === 38}>
+                            <ArrowRightCircle size={20} />
+                        </Button>
+                    </div>
                 </div>
+
+                {/* Content */}
+                <GameweekTile gameweek={curGameweek} season={curSeason} />
             </div>
         </div>
-    )
+    );
 }
-
