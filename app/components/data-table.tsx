@@ -199,13 +199,13 @@ export function DataTable<TData, TValue>({
                     placeholder="Search player, team..."
                     value={globalFilter}
                     onChange={(e) => setGlobalFilter(e.target.value)}
-                    className="h-8 px-3 text-sm bg-surface border border-gold-border text-text-primary placeholder:text-text-secondary outline-none focus:border-gold w-full sm:w-48 transition-colors"
+                    className="h-8 px-3 text-sm font-mono font-normal bg-surface border border-gold-border text-text-primary placeholder:text-text-secondary outline-none focus:border-gold w-full sm:w-48 transition-colors"
                 />
                 <div className="flex gap-1">
                     {positions.map((position) => (
                         <button
                             key={position}
-                            className={`px-2.5 py-1 text-xs font-semibold uppercase tracking-wide border transition-colors
+                            className={`px-2.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider border transition-colors
                                 ${curPosition === position
                                     ? "bg-gold text-surface border-gold"
                                     : "bg-transparent text-text-secondary border-gold-border hover:text-text-primary hover:border-gold"
@@ -230,7 +230,7 @@ export function DataTable<TData, TValue>({
                                 {headerGroup.headers.map((header) => (
                                     <th
                                         key={header.id}
-                                        className="h-9 px-2 text-left align-middle text-xs font-bold uppercase tracking-wider text-gold whitespace-nowrap"
+                                        className="h-9 px-2 text-left align-middle text-xs font-mono font-semibold uppercase tracking-wider text-gold whitespace-nowrap"
                                     >
                                         {header.isPlaceholder
                                             ? null
@@ -242,7 +242,7 @@ export function DataTable<TData, TValue>({
                         ))}
                     </thead>
 
-                    <tbody className="font-mono text-xs">
+                    <tbody className="font-body font-normal text-xs">
                         {table.getRowModel().rows?.length
                             ? table.getRowModel().rows.map((row, i) => (
                                 <tr
@@ -255,7 +255,7 @@ export function DataTable<TData, TValue>({
                                         <td
                                             key={cell.id}
                                             className={`px-2 py-2 align-middle whitespace-nowrap
-                                                ${ci === 0 ? "text-text-primary font-semibold font-sans" : "text-text-secondary"}`}
+                                                ${ci === 0 ? "text-text-primary font-medium" : "text-text-secondary"}`}
                                         >
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </td>
@@ -281,7 +281,7 @@ export function DataTable<TData, TValue>({
                 </span>
                 <div className="flex items-center gap-1">
                     <button
-                        className="flex items-center gap-1 px-2.5 py-1.5 border border-gold-border text-text-secondary hover:text-text-primary hover:border-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center gap-1 px-2.5 py-1.5 font-mono font-medium border border-gold-border text-text-secondary hover:text-text-primary hover:border-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         onClick={() => {
                             setPagination(old => ({ ...old, pageIndex: old.pageIndex - 1 }));
                             table.previousPage();
@@ -291,7 +291,7 @@ export function DataTable<TData, TValue>({
                         <ChevronLeft size={14} /> Prev
                     </button>
                     <button
-                        className="flex items-center gap-1 px-2.5 py-1.5 border border-gold-border text-text-secondary hover:text-text-primary hover:border-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center gap-1 px-2.5 py-1.5 font-mono font-medium border border-gold-border text-text-secondary hover:text-text-primary hover:border-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         onClick={() => {
                             setPagination(old => ({ ...old, pageIndex: old.pageIndex + 1 }));
                             table.nextPage();

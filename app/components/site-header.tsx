@@ -20,7 +20,7 @@ export function SiteHeader() {
           <div className="w-8 h-8 rounded-none bg-gold flex items-center justify-center">
             <BarChart3 size={18} className="text-surface" />
           </div>
-          <span className="text-text-primary font-bold text-base tracking-wide sm:text-lg">
+          <span className="text-text-primary font-sans font-normal text-base tracking-wide sm:text-lg">
             FPL <span className="text-gold">Wrapped</span>
           </span>
         </Link>
@@ -33,7 +33,7 @@ export function SiteHeader() {
               <Link
                 key={to}
                 to={to}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-none text-sm font-medium transition-colors no-underline
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-none text-sm font-mono font-medium tracking-wide transition-colors no-underline
                   ${isActive
                     ? "bg-gold-muted text-gold"
                     : "text-text-secondary hover:text-text-primary hover:bg-gold-subtle"
@@ -66,7 +66,7 @@ export function SiteHeader() {
                       key={to}
                       to={to}
                       onClick={() => setMenuOpen(false)}
-                      className={`block px-4 py-2.5 text-sm font-medium transition-colors no-underline
+                      className={`block px-4 py-2.5 text-sm font-mono font-medium tracking-wide transition-colors no-underline
                         ${isActive
                           ? "bg-gold-muted text-gold"
                           : "text-text-secondary hover:text-text-primary hover:bg-gold-subtle"

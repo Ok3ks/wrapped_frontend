@@ -41,7 +41,7 @@ const ReportPage: React.FC = () => {
       <div className="mx-auto px-3 py-6 sm:px-6 sm:py-10 max-w-[960px]">
 
         {/* Back link */}
-        <Link to="/" className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-900 mb-6 no-underline uppercase tracking-wider font-medium">
+        <Link to="/" className="inline-flex items-center gap-1 text-xs font-mono font-medium text-gray-400 hover:text-gray-900 mb-6 no-underline uppercase tracking-wider">
           <ArrowLeft size={12} /> Home
         </Link>
 
@@ -52,15 +52,15 @@ const ReportPage: React.FC = () => {
             <div className="p-5 sm:p-8 flex flex-col justify-center">
               <div className="flex items-center gap-2 mb-1">
                 <FileBarChart size={20} />
-                <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Manager Report</span>
+                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-gray-400">Manager Report</span>
               </div>
-              <h1 className="text-2xl font-bold mb-4 sm:text-3xl sm:mb-6">
+              <h1 className="text-2xl font-sans font-normal mb-4 sm:text-3xl sm:mb-6">
                 Generate your<br />FPL report
               </h1>
 
               {!submittedFplId ? (
                 <form onSubmit={handleFplIdSubmit}>
-                  <label htmlFor="fplId" className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">
+                  <label htmlFor="fplId" className="block text-xs font-mono font-semibold uppercase tracking-wider text-gray-400 mb-1.5">
                     Enter your Manager ID
                   </label>
                   <div className="flex gap-0">
@@ -77,7 +77,7 @@ const ReportPage: React.FC = () => {
                     />
                     <button
                       type="submit"
-                      className="h-11 px-5 bg-gray-900 text-white text-sm font-semibold uppercase tracking-wider hover:bg-gray-700 disabled:opacity-20 disabled:cursor-not-allowed transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
+                      className="h-11 px-5 bg-gray-900 text-white text-sm font-mono font-semibold uppercase tracking-wider hover:bg-gray-700 disabled:opacity-20 disabled:cursor-not-allowed transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
                       disabled={!fplId || !/^\d+$/.test(fplId)}
                     >
                       Go <ArrowRight size={14} />
@@ -89,16 +89,16 @@ const ReportPage: React.FC = () => {
                   <div className="flex items-center gap-3 mb-3">
                     <BarChart2 size={28} className="text-gray-900 shrink-0" />
                     <div>
-                      <p className="font-bold text-lg">Processing</p>
-                      <p className="text-gray-500 text-sm">FPL ID: <span className="font-mono font-bold text-gray-900">{fplId}</span></p>
+                      <p className="font-mono font-semibold text-lg">Processing</p>
+                      <p className="text-gray-500 text-sm font-mono font-normal">FPL ID: <span className="font-bold text-gray-900">{fplId}</span></p>
                     </div>
                   </div>
-                  <p className="text-gray-400 text-sm mb-4">
+                  <p className="text-gray-400 text-sm font-body font-normal mb-4">
                     Generating season performance, transfer analysis, captain choices, and more.
                   </p>
                   <button
                     onClick={() => { setFplId(""); setSubmittedFplId(false); }}
-                    className="text-sm font-semibold text-gray-900 underline underline-offset-2 hover:text-gray-600 cursor-pointer"
+                    className="text-sm font-mono font-semibold text-gray-900 underline underline-offset-2 hover:text-gray-600 cursor-pointer"
                   >
                     Try a different ID
                   </button>
@@ -108,10 +108,10 @@ const ReportPage: React.FC = () => {
 
             {/* Right: How-to guide */}
             <div className="bg-gray-900 text-white p-5 sm:p-8 flex flex-col justify-center">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">How to find your ID</p>
-              <ol className="space-y-2.5 text-sm text-gray-300">
+              <p className="text-xs font-mono font-semibold uppercase tracking-widest text-gray-500 mb-3">How to find your ID</p>
+              <ol className="space-y-2.5 text-sm font-body font-normal text-gray-300">
                 <li className="flex gap-2">
-                  <span className="text-white font-bold shrink-0">1.</span>
+                  <span className="text-white font-semibold shrink-0">1.</span>
                   <span>
                     Go to{" "}
                     <a href="https://fantasy.premierleague.com/" target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-2 inline-flex items-center gap-1">
@@ -120,15 +120,15 @@ const ReportPage: React.FC = () => {
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-white font-bold shrink-0">2.</span>
+                  <span className="text-white font-semibold shrink-0">2.</span>
                   <span>Click <strong className="text-white">"Points"</strong></span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-white font-bold shrink-0">3.</span>
+                  <span className="text-white font-semibold shrink-0">3.</span>
                   <span>Copy the number from the URL</span>
                 </li>
               </ol>
-              <div className="mt-4 p-3 bg-black/30 font-mono text-xs break-all text-gray-500 border border-gray-700 sm:text-sm">
+              <div className="mt-4 p-3 bg-black/30 font-mono font-normal text-xs break-all text-gray-500 border border-gray-700 sm:text-sm">
                 /entry/<span className="text-white font-bold">1234567</span>/event/8
               </div>
             </div>
@@ -137,15 +137,15 @@ const ReportPage: React.FC = () => {
 
         {/* Placeholder grid — report sections preview */}
         <div className="mb-10 sm:mb-14">
-          <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Report Preview</p>
+          <p className="text-xs font-mono font-semibold uppercase tracking-widest text-gray-400 mb-4">Report Preview</p>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {/* Tall left column */}
             <div className="col-span-2 row-span-2 bg-white border border-gray-200 p-5 flex flex-col justify-between min-h-[200px] sm:min-h-[280px]">
               <div>
                 <div className="w-10 h-1 bg-gray-900 mb-3" />
-                <p className="text-sm font-bold uppercase tracking-wider">Season Overview</p>
-                <p className="text-xs text-gray-400 mt-1">Points, rank, and trajectory</p>
+                <p className="text-sm font-mono font-semibold uppercase tracking-wider">Season Overview</p>
+                <p className="text-xs font-body font-normal text-gray-400 mt-1">Points, rank, and trajectory</p>
               </div>
               <div className="flex gap-1 items-end mt-4">
                 {[40, 65, 50, 80, 55, 70, 90, 60, 75, 85, 45, 95].map((h, i) => (
@@ -158,16 +158,16 @@ const ReportPage: React.FC = () => {
             <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
               <div className="w-8 h-1 bg-gray-900" />
               <div>
-                <p className="text-2xl font-bold text-gray-200 sm:text-3xl">—</p>
-                <p className="text-xs text-gray-400 uppercase tracking-wider mt-1">Overall Rank</p>
+                <p className="text-2xl font-mono font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-xs font-mono font-normal text-gray-400 uppercase tracking-wider mt-1">Overall Rank</p>
               </div>
             </div>
 
             <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
               <div className="w-8 h-1 bg-gray-900" />
               <div>
-                <p className="text-2xl font-bold text-gray-200 sm:text-3xl">—</p>
-                <p className="text-xs text-gray-400 uppercase tracking-wider mt-1">Total Points</p>
+                <p className="text-2xl font-mono font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-xs font-mono font-normal text-gray-400 uppercase tracking-wider mt-1">Total Points</p>
               </div>
             </div>
 
@@ -175,16 +175,16 @@ const ReportPage: React.FC = () => {
             <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
               <div className="w-8 h-1 bg-gray-900" />
               <div>
-                <p className="text-2xl font-bold text-gray-200 sm:text-3xl">—</p>
-                <p className="text-xs text-gray-400 uppercase tracking-wider mt-1">Best GW</p>
+                <p className="text-2xl font-mono font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-xs font-mono font-normal text-gray-400 uppercase tracking-wider mt-1">Best GW</p>
               </div>
             </div>
 
             <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
               <div className="w-8 h-1 bg-gray-900" />
               <div>
-                <p className="text-2xl font-bold text-gray-200 sm:text-3xl">—</p>
-                <p className="text-xs text-gray-400 uppercase tracking-wider mt-1">Transfers</p>
+                <p className="text-2xl font-mono font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-xs font-mono font-normal text-gray-400 uppercase tracking-wider mt-1">Transfers</p>
               </div>
             </div>
           </div>
@@ -193,8 +193,8 @@ const ReportPage: React.FC = () => {
           <div className="grid grid-cols-1 gap-3 mt-3 sm:grid-cols-3 sm:gap-4 sm:mt-4">
             <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
               <div className="w-10 h-1 bg-gray-900 mb-3" />
-              <p className="text-sm font-bold uppercase tracking-wider">Captain Picks</p>
-              <p className="text-xs text-gray-400 mt-1">Your captaincy decisions and hit rates</p>
+              <p className="text-sm font-mono font-semibold uppercase tracking-wider">Captain Picks</p>
+              <p className="text-xs font-body font-normal text-gray-400 mt-1">Your captaincy decisions and hit rates</p>
               <div className="flex gap-2 mt-4">
                 {[60, 40, 80, 30, 70].map((w, i) => (
                   <div key={i} className="h-2 bg-gray-100" style={{ width: `${w}%` }} />
@@ -204,8 +204,8 @@ const ReportPage: React.FC = () => {
 
             <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
               <div className="w-10 h-1 bg-gray-900 mb-3" />
-              <p className="text-sm font-bold uppercase tracking-wider">Transfer History</p>
-              <p className="text-xs text-gray-400 mt-1">Moves, hits, and value changes</p>
+              <p className="text-sm font-mono font-semibold uppercase tracking-wider">Transfer History</p>
+              <p className="text-xs font-body font-normal text-gray-400 mt-1">Moves, hits, and value changes</p>
               <div className="flex items-end gap-1 mt-4">
                 {[20, 35, 15, 50, 25, 40, 30, 45].map((h, i) => (
                   <div key={i} className="flex-1 bg-gray-100" style={{ height: `${h}px` }} />
@@ -265,8 +265,8 @@ const ReportPage: React.FC = () => {
 
               {/* Label overlay */}
               <div className="relative z-10 p-4 sm:p-5">
-                <p className="text-xs font-bold uppercase tracking-widest text-white/40">Best XI</p>
-                <p className="text-[10px] text-white/30 mt-0.5">Highest-scoring possible lineup</p>
+                <p className="text-xs font-mono font-semibold uppercase tracking-widest text-white/40">Best XI</p>
+                <p className="text-[10px] font-body font-normal text-white/30 mt-0.5">Highest-scoring possible lineup</p>
               </div>
             </div>
           </div>

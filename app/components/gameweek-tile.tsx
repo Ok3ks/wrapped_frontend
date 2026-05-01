@@ -475,27 +475,27 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
                             <div key={index} className="flex items-center justify-between gap-2 px-3 py-2 rounded-none bg-surface-2 border border-gold-subtle hover:border-gold-muted transition-all duration-200 text-text-primary">
 
                                 {/* Date */}
-                                <span className="text-[0.6rem] text-text-secondary w-10 shrink-0">
+                                <span className="text-[0.6rem] font-mono font-normal text-text-secondary w-10 shrink-0">
                                 {tempDate}
                                 </span>
 
                                 {/* Home Team */}
-                                <span className={`text-xs truncate text-right w-20 shrink-0 ${
-                                draw ? 'font-normal opacity-60' : homeWin ? 'font-bold text-gold' : 'font-normal opacity-60'
+                                <span className={`text-xs font-mono truncate text-right w-20 shrink-0 ${
+                                draw ? 'font-normal opacity-60' : homeWin ? 'font-semibold text-gold' : 'font-normal opacity-60'
                                 }`}>
                                 {isMobile ? teamAbbreviations[item.home] || item.home.substring(0, 3).toUpperCase() : item.home}
                                 </span>
 
                                 {/* Score */}
-                                <span className={`text-xs font-mono font-semibold px-2 py-0.5 rounded shrink-0 ${
+                                <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded shrink-0 ${
                                 item.finished ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                                 }`}>
                                 {item.homegoals} – {item.awaygoals}
                                 </span>
 
                                 {/* Away Team */}
-                                <span className={`text-xs truncate text-left w-20 shrink-0 ${
-                                draw ? 'font-normal opacity-60' : !homeWin ? 'font-bold text-gold' : 'font-normal opacity-60'
+                                <span className={`text-xs font-mono truncate text-left w-20 shrink-0 ${
+                                draw ? 'font-normal opacity-60' : !homeWin ? 'font-semibold text-gold' : 'font-normal opacity-60'
                                 }`}>
                                 {isMobile ? teamAbbreviations[item.away] || item.away.substring(0, 3).toUpperCase() : item.away}
                                 </span>

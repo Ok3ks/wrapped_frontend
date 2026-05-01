@@ -42,8 +42,9 @@ export const colors = {
 // ─── Typography ─────────────────────────────────────────────
 export const typography = {
   fontFamily: {
-    brand: "Inter, ui-sans-serif, system-ui, sans-serif",
-    mono: "'DM Mono', monospace",
+    display: "'oskar-one-light', sans-serif",
+    ui: "'Orbitron', sans-serif",
+    body: "'Space Grotesk', sans-serif",
   },
   fontSize: {
     xs: "0.75rem",    // 12px
@@ -117,7 +118,7 @@ export const chartTheme = {
     legend: {
       labels: {
         color: colors.textSecondary,
-        font: { family: typography.fontFamily.mono, size: 11 },
+        font: { family: typography.fontFamily.body, size: 11 },
         boxWidth: 10,
         padding: 16,
       },
@@ -129,18 +130,18 @@ export const chartTheme = {
       borderColor: colors.goldBorderSubtle,
       borderWidth: 1,
       padding: 10,
-      titleFont: { family: typography.fontFamily.mono, size: 12 },
-      bodyFont: { family: typography.fontFamily.mono, size: 11 },
+      titleFont: { family: typography.fontFamily.ui, size: 12, weight: "600" as const },
+      bodyFont: { family: typography.fontFamily.body, size: 11 },
     },
   },
   scales: {
     x: {
-      ticks: { color: colors.textSecondary, font: { family: typography.fontFamily.mono, size: 10 } },
+      ticks: { color: colors.textSecondary, font: { family: typography.fontFamily.body, size: 10 } },
       grid: { color: colors.gridLine },
       border: { color: colors.goldBorderSubtle },
     },
     y: {
-      ticks: { color: colors.textSecondary, font: { family: typography.fontFamily.mono, size: 10 } },
+      ticks: { color: colors.textSecondary, font: { family: typography.fontFamily.body, size: 10 } },
       grid: { color: colors.gridLine },
       border: { color: colors.goldBorderSubtle },
     },

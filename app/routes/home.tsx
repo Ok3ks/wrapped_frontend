@@ -35,7 +35,7 @@ export default function LandingPage() {
                     <select
                         value={curSeason}
                         onChange={(e) => updateSeason(e.target.value as Season)}
-                        className="h-8 px-2 mt-3 w-36 flex justify-center text-xs font-semibold bg-surface border-2 border-gold-border text-text-primary cursor-pointer transition-colors hover:border-gold focus:border-gold outline-none sm:text-sm sm:h-9 sm:px-3"
+                        className="h-8 px-2 mt-3 w-36 flex justify-center text-xs font-mono font-semibold bg-surface border-2 border-gold-border text-text-primary cursor-pointer transition-colors hover:border-gold focus:border-gold outline-none sm:text-sm sm:h-9 sm:px-3"
                     >
                         {seasons.map((season) => (
                             <option key={season} value={season}>

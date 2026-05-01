@@ -26,7 +26,7 @@ export function SiteFooter() {
           </div>
 
 
-        <p className="text-text-secondary text-xs sm:text-sm">
+        <p className="text-text-secondary text-xs font-mono font-normal sm:text-sm">
           2026 FPLWrapped
         </p>
       </div>

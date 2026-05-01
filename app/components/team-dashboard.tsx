@@ -81,7 +81,7 @@ export function TeamPointsChart({ data }: { data: Players[] }) {
           y: { ...chartTheme.scales.y,
             ticks: {
               ...chartTheme.scales.y.ticks,
-              font: { family: typography.fontFamily.mono, size: 9 }
+              font: { family: typography.fontFamily.body, size: 9 }
             }
           },
         },
@@ -156,7 +156,7 @@ export function TeamXgXaChart({ data }: { data: Players[] }) {
               ...chartTheme.scales.x.ticks,
               maxRotation: 45,
               minRotation: 45,
-              font: { family: typography.fontFamily.mono, size: 8 },
+              font: { family: typography.fontFamily.body, size: 8 },
             },
           },
           y: {
@@ -283,7 +283,7 @@ export function TeamPointsSpreadChart({ data }: { data: Players[] }) {
               ...chartTheme.scales.x.ticks,
               maxRotation: 45,
               minRotation: 45,
-              font: { family: typography.fontFamily.mono, size: 8 },
+              font: { family: typography.fontFamily.body, size: 8 },
             },
           },
           y: {

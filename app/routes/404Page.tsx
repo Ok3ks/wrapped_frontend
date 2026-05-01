@@ -59,15 +59,15 @@ const NotFoundPage: React.FC = () => {
         padding: '20px',
       }}
     >
-      <h1 style={{ fontSize: '3rem', marginBottom: '10px' }}>404 - Page Not Found</h1>
-      <p style={{ marginBottom: '20px' }}>
+      <h1 className="font-sans font-normal text-3xl mb-2 uppercase sm:text-5xl">404 - Page Not Found</h1>
+      <p className="font-mono font-normal text-sm mb-5 text-text-secondary">
         Oops! It looks like you've wandered off the beaten path. But to lighten the mood, enjoy this fun D3.js
         visualization!
       </p>
       <svg ref={svgRef}></svg>
       <a
         href="/"
-        style={{ color: '#0070f3', textDecoration: 'underline', marginTop: '20px', fontSize: '1.2rem' }}
+        className="font-mono font-medium text-gold underline mt-5 text-lg"
       >
         Go Back Home
       </a>
