@@ -42,7 +42,7 @@ const ReportPage: React.FC = () => {
 
         {/* Back link */}
         <Link to="/" className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-900 mb-6 no-underline uppercase tracking-wider font-medium">
-          <ArrowLeft size={12} /> Dashboard
+          <ArrowLeft size={12} /> Home
         </Link>
 
         {/* Hero — combined ID entry + guide */}

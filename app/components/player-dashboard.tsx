@@ -54,7 +54,7 @@ export function CreativityThreatChart({ data }: { data: Players[] }) {
   useEffect(() => {
     if (!ref.current) return
     const top30 = [...data]
-      .filter(p => (p.creativity ?? 0) > 0 && (p.threat ?? 0) > 0)
+      // .filter(p => (p.creativity ?? 0) > 0 && (p.threat ?? 0) > 0)
       .sort((a, b) => b.total_points - a.total_points)
       .slice(0, 30)
     const chart = new Chart(ref.current, {
