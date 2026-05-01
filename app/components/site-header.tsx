@@ -2,9 +2,9 @@ import { Link, useLocation } from "react-router"
 import { BarChart3, FileBarChart, HelpCircle } from "lucide-react"
 
 const navLinks = [
-  { to: "/", label: "Dashboard", icon: BarChart3 },
-  { to: "/report", label: "Reports", icon: FileBarChart },
-  { to: "/faq", label: "FAQ", icon: HelpCircle },
+  { to: "/", label: "Home"},
+  { to: "/report", label: "Reports" },
+  { to: "/faq", label: "FAQ"},
 ]
 
 export function SiteHeader() {
@@ -25,7 +25,7 @@ export function SiteHeader() {
 
         {/* Nav links */}
         <nav className="flex items-center gap-1 sm:gap-2">
-          {navLinks.map(({ to, label, icon: Icon }) => {
+          {navLinks.map(({ to, label}) => {
             const isActive = location.pathname === to
             return (
               <Link
@@ -37,7 +37,7 @@ export function SiteHeader() {
                     : "text-text-secondary hover:text-text-primary hover:bg-gold-subtle"
                   }`}
               >
-                <Icon size={16} />
+                {/* <Icon size={16} /> */}
                 <span className="hidden sm:inline">{label}</span>
               </Link>
             )
