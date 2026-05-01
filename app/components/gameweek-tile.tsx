@@ -1,66 +1,11 @@
-
-
-
-
-
-
-
 import { getFixturesData, getGameweekData } from "~/data";
-
-
-
 import {type Fixtures, type Players, type Season } from "~/types";
-
-
-
 import { useCallback, useEffect, useState } from "react";
-
-
-
 import { columns, DataTable } from "./data-table";
-
-
-
-import {
-
-
-
-    Carousel,
-
-
-
-    CarouselContent,
-
-
-
-    CarouselItem,
-
-
-
-    CarouselNext,
-
-
-
-    CarouselPrevious,
-
-
-
-  } from "~/components/ui/carousel";
-
-
-
 import { useIsMobile } from "~/components/ui/use-mobile";
-
-
-
 import { teamAbbreviations } from "~/lib/team-abbreviations";
 import { PlayerChartsDashboard } from "./player-dashboard";
 import { TeamChartsDashboard } from "./team-dashboard";
-
-
-
-
-
 
 
 interface gameweekTileProps {
@@ -340,11 +285,9 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
 
         <>
         <div className="gameweek-tile">
-            <h3>Fixtures</h3>
-            <div className="fixture-tile">
+            <div className="fixture-tile-wrapper">
                 <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
             </div> 
-            <h3>Players</h3>
                 <DataTable columns={columns} data={data} />
         </div>
     
@@ -377,58 +320,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
 
 
-    const [ data, setData ]  = useState<Fixtures[]>([{
-
-
-
-        homedifficulty:"3",
-
-
-
-        awaydifficulty:"",
-
-
-
-        home: "",
-
-
-
-        away: "",
-
-
-
-        gameweek: 2,
-
-
-
-        season: "2024_2025",
-
-
-
-        draw: false,
-
-
-
-        date: new Date("1995-12-17T03:24:00"),
-
-
-
-        homegoals: 0,
-
-
-
-        awaygoals: 0,
-
-
-
-        finished: false,
-
-
-
-    }]);
-
-
-
+    const [ data, setData ]  = useState<Fixtures[] | undefined>();
 
 
 
@@ -480,7 +372,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
     useEffect(() =>{
 
 
-
+        ///Prefer useQuery
         fixtureData();
 
 
@@ -533,7 +425,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
 
 
-                        const tempDate = new Intl.DateTimeFormat('en-US', {
+                        const tempDate = new Intl.DateTimeFormat('en-UK', {
 
 
 
@@ -553,7 +445,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
 
 
-                            hour12: true 
+                            hour12: false 
 
 
 
