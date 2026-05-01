@@ -314,30 +314,62 @@ body {
 }
 
 /* ── Fixture Tile (mobile-first) ─────────────────────────────── */
+.fixture-tile-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: var(--surface-2);
+  padding: var(--space-1) 0;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-border) var(--surface-2);
+}
+
+.fixture-tile-wrapper::-webkit-scrollbar {
+  height: 4px;
+}
+
+.fixture-tile-wrapper::-webkit-scrollbar-track {
+  background: var(--surface-2);
+}
+
+.fixture-tile-wrapper::-webkit-scrollbar-thumb {
+  background: var(--gold-border);
+  border-radius: 2px;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .fixture-tile {
   display: flex;
-  justify-content: flex-start;
   gap: var(--space-1);
   align-items: center;
-  overflow-y: auto;
-  max-height: 280px;
+  white-space: nowrap;
+  width: max-content;
 
   background: var(--surface-2);
   padding: var(--space-1);
 
-  transition: all var(--transition);
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.fixture-tile-wrapper:hover .fixture-tile {
+  animation-play-state: paused;
 }
 
 @media (min-width: 768px) {
+  .fixture-tile-wrapper {
+    padding: var(--space-2) 0;
+  }
   .fixture-tile {
-    max-height: 400px;
     padding: var(--space-2);
   }
-}
-
-.fixture-tile:hover {
-  background: var(--surface-hover);
-  border-color: var(--gold-border);
 }
 
 /* ── Gameweek Navigator (mobile-first) ───────────────────────── */
