@@ -192,7 +192,7 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div>
+        <div className="w-full max-w-full overflow-hidden">
             {/* Search + position filters */}
             <div className="flex flex-wrap items-center gap-2 py-3">
                 <input

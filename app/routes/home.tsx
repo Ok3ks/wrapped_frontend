@@ -10,9 +10,9 @@ export default function LandingPage() {
     const seasons = Array.from<Season>(["2025_2026", "2024_2025" ]);
 
     return (
-        <div className="flex">
+        <div className="flex w-full max-w-full overflow-x-hidden">
             {/* Sticky gameweek sidebar */}
-            <aside className="hidden md:flex sticky top-[49px] h-[calc(100vh-49px)] w-10 shrink-0 flex-col bg-surface border-r border-gold-border overflow-y-auto gw-sidebar">
+            <aside className="sticky top-[49px] h-[calc(100vh-49px)] w-10 shrink-0 flex-col bg-surface border-r border-gold-border overflow-y-auto gw-sidebar">
                 {Array.from({ length: 38 }, (_, i) => i + 1).sort((a,b) => b-a).map((gw) => (
                     <button
                         key={gw}
@@ -32,24 +32,20 @@ export default function LandingPage() {
             <div className="flex-1 min-w-0 px-3 py-3 sm:px-6 sm:py-4">
                 {/* Season selector + GW nav row */}
                 <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <div className="flex gap-2">
+                    <select
+                        value={curSeason}
+                        onChange={(e) => updateSeason(e.target.value as Season)}
+                        className="h-8 px-2 mt-3 w-36 flex justify-center text-xs font-semibold bg-surface border-2 border-gold-border text-text-primary cursor-pointer transition-colors hover:border-gold focus:border-gold outline-none sm:text-sm sm:h-9 sm:px-3"
+                    >
                         {seasons.map((season) => (
-                            <button
-                                key={season}
-                                className={`px-4 py-1.5 h-8 text-xs font-semibold transition-colors cursor-pointer sm:text-sm sm:h-9 sm:px-5
-                                    ${season === curSeason
-                                        ? "bg-gold border-2 border-gold text-surface hover:bg-gold-soft"
-                                        : "bg-transparent border-2 border-gold-border text-text-secondary hover:border-gold hover:text-text-primary"
-                                    }`}
-                                onClick={() => updateSeason(season)}
-                            >
+                            <option key={season} value={season}>
                                 {season.replace("_", "/")}
-                            </button>
+                            </option>
                         ))}
-                    </div>
+                    </select>
 
                     {/* Gameweek navigator */}
-                    <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="hidden sm:flex flex items-center sm:gap-2">
                         <Button className="nav-btn" onClick={() => updateGameweek(Math.max(1, curGameweek - 1))} disabled={curGameweek === 1}>
                             <ArrowLeftCircle size={20} />
                         </Button>

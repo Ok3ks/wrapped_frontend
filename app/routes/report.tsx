@@ -272,14 +272,6 @@ const ReportPage: React.FC = () => {
           </div>
         </div>
 
-        {/* FAQ link */}
-        <div className="border-t border-gray-200 pt-6 sm:pt-8 flex items-center justify-between">
-          <Link to="/faq" className="inline-flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-gray-900 no-underline uppercase tracking-wider">
-            <HelpCircle size={14} /> FAQ
-          </Link>
-          <span className="text-xs text-gray-300">FPL Wrapped</span>
-        </div>
-
       </div>
     </div>
   );

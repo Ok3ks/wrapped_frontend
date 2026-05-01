@@ -284,14 +284,14 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
 
 
         <>
-        <div className="gameweek-tile">
+        <div className="gameweek-tile w-full max-w-full">
             <div className="fixture-tile-wrapper">
                 <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
-            </div> 
+            </div>
                 <DataTable columns={columns} data={data} />
         </div>
-    
-        {data && <div>
+
+        {data && <div className="w-full max-w-full overflow-x-hidden">
         <PlayerChartsDashboard data={data} />
         <TeamChartsDashboard data={data} />
 
