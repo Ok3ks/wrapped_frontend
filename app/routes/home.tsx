@@ -7,13 +7,13 @@ import { type Season } from '~/types';
 
 export default function LandingPage() {
     const { curSeason, curGameweek } = useAppStore();
-    const seasons = Array.from<Season>(["2024_2025", "2025_2026"]);
+    const seasons = Array.from<Season>(["2025_2026", "2024_2025" ]);
 
     return (
         <div className="flex">
             {/* Sticky gameweek sidebar */}
             <aside className="hidden md:flex sticky top-[49px] h-[calc(100vh-49px)] w-10 shrink-0 flex-col bg-surface border-r border-gold-border overflow-y-auto gw-sidebar">
-                {Array.from({ length: 38 }, (_, i) => i + 1).map((gw) => (
+                {Array.from({ length: 38 }, (_, i) => i + 1).sort((a,b) => b-a).map((gw) => (
                     <button
                         key={gw}
                         onClick={() => updateGameweek(gw)}
