@@ -1,27 +1,36 @@
-import { Github } from "lucide-react"
+import { HelpCircle, Link, Mail } from "lucide-react"
+import { useNavigate } from "react-router"
 
 export function SiteFooter() {
+  const navigate = useNavigate()
   return (
     <footer className="bg-surface border-t border-gold-border">
-      <div className="flex flex-col items-center gap-3 px-3 py-4 sm:flex-row sm:justify-between sm:px-6 sm:py-5">
-        <p className="text-text-secondary text-xs sm:text-sm">
-          FPL Wrapped — Fantasy Premier League Dashboard
-        </p>
+      <div className=" flex items-center justify-between sm:flex-row sm:justify-between sm:px-6 sm:py-5">
+      
 
-        <div className="flex items-center gap-4">
           <a
-            href="https://github.com/Ok3ks"
+            href="mailto:fplbps@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-text-secondary hover:text-gold transition-colors"
           >
-            <Github size={18} />
+          <div className="flex items-center gap-4 underline">
+            <Mail size={18} />
+            <p> Email</p>
+          </div>
           </a>
-          <span className="text-text-secondary text-xs">
-            Built with React Router &amp; Tailwind
-          </span>
-        </div>
+          
+          <div className="flex items-center gap-4 underline text-text-secondary hover:text-gold transition-colors"
+                onClick={() => navigate("/faq")}>
+            <HelpCircle size={18} /> FAQ
+          </div>
+
+
+        <p className="text-text-secondary text-xs sm:text-sm">
+          2026 FPLWrapped
+        </p>
       </div>
+
     </footer>
   )
 }
