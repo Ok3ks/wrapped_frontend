@@ -9,8 +9,14 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { SiteHeader } from "./components/site-header";
+import { SiteFooter } from "./components/site-footer";
 
 export const links: Route.LinksFunction = () => [
+  {
+    rel: "stylesheet",
+    href: "https://use.typekit.net/yrc8tgt.css",
+  },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
@@ -19,7 +25,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Space+Grotesk:wght@300..700&display=swap",
   },
 ];
 
@@ -42,7 +48,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <div className="min-h-screen flex flex-col bg-surface overflow-x-hidden">
+      <SiteHeader />
+      <main className="flex-1 w-full max-w-full overflow-x-hidden">
+        <Outlet />
+      </main>
+      <SiteFooter />
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

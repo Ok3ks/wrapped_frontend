@@ -1,66 +1,11 @@
-
-
-
-
-
-
-
 import { getFixturesData, getGameweekData } from "~/data";
-
-
-
 import {type Fixtures, type Players, type Season } from "~/types";
-
-
-
 import { useCallback, useEffect, useState } from "react";
-
-
-
 import { columns, DataTable } from "./data-table";
-
-
-
-import {
-
-
-
-    Carousel,
-
-
-
-    CarouselContent,
-
-
-
-    CarouselItem,
-
-
-
-    CarouselNext,
-
-
-
-    CarouselPrevious,
-
-
-
-  } from "~/components/ui/carousel";
-
-
-
 import { useIsMobile } from "~/components/ui/use-mobile";
-
-
-
 import { teamAbbreviations } from "~/lib/team-abbreviations";
 import { PlayerChartsDashboard } from "./player-dashboard";
 import { TeamChartsDashboard } from "./team-dashboard";
-
-
-
-
-
 
 
 interface gameweekTileProps {
@@ -339,16 +284,14 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
 
 
         <>
-        <div className="gameweek-tile">
-            <h3>Fixtures</h3>
-            <div className="fixture-tile">
+        <div className="gameweek-tile w-full max-w-full">
+            <div className="fixture-tile-wrapper">
                 <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
-            </div> 
-            <h3>Players</h3>
+            </div>
                 <DataTable columns={columns} data={data} />
         </div>
-    
-        {data && <div>
+
+        {data && <div className="w-full max-w-full overflow-x-hidden">
         <PlayerChartsDashboard data={data} />
         <TeamChartsDashboard data={data} />
 
@@ -377,58 +320,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
 
 
-    const [ data, setData ]  = useState<Fixtures[]>([{
-
-
-
-        homedifficulty:"3",
-
-
-
-        awaydifficulty:"",
-
-
-
-        home: "",
-
-
-
-        away: "",
-
-
-
-        gameweek: 2,
-
-
-
-        season: "2024_2025",
-
-
-
-        draw: false,
-
-
-
-        date: new Date("1995-12-17T03:24:00"),
-
-
-
-        homegoals: 0,
-
-
-
-        awaygoals: 0,
-
-
-
-        finished: false,
-
-
-
-    }]);
-
-
-
+    const [ data, setData ]  = useState<Fixtures[] | undefined>();
 
 
 
@@ -480,7 +372,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
     useEffect(() =>{
 
 
-
+        ///Prefer useQuery
         fixtureData();
 
 
@@ -533,7 +425,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
 
 
-                        const tempDate = new Intl.DateTimeFormat('en-US', {
+                        const tempDate = new Intl.DateTimeFormat('en-UK', {
 
 
 
@@ -553,7 +445,7 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
 
 
 
-                            hour12: true 
+                            hour12: false 
 
 
 
@@ -580,30 +472,30 @@ export function FixtureTile({gameweek, season}: gameweekTileProps) {
                         return (
 
 
-                            <div key={index} className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-[var(--surface-2)] border border-[rgba(255,215,0,0.08)] hover:border-[rgba(255,215,0,0.25)] transition-all duration-200 text-[var(--text-primary)]">
+                            <div key={index} className="flex items-center justify-between gap-2 px-3 py-2 rounded-none bg-surface-2 border border-gold-subtle hover:border-gold-muted transition-all duration-200 text-text-primary">
 
                                 {/* Date */}
-                                <span className="text-[0.6rem] text-[var(--text-secondary)] w-10 shrink-0">
+                                <span className="text-[0.6rem] font-mono font-normal text-text-secondary w-10 shrink-0">
                                 {tempDate}
                                 </span>
 
                                 {/* Home Team */}
-                                <span className={`text-xs truncate text-right w-20 shrink-0 ${
-                                draw ? 'font-normal opacity-60' : homeWin ? 'font-bold text-[var(--gold)]' : 'font-normal opacity-60'
+                                <span className={`text-xs font-mono truncate text-right w-20 shrink-0 ${
+                                draw ? 'font-normal opacity-60' : homeWin ? 'font-semibold text-gold' : 'font-normal opacity-60'
                                 }`}>
                                 {isMobile ? teamAbbreviations[item.home] || item.home.substring(0, 3).toUpperCase() : item.home}
                                 </span>
 
                                 {/* Score */}
-                                <span className={`text-xs font-mono font-semibold px-2 py-0.5 rounded shrink-0 ${
+                                <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded shrink-0 ${
                                 item.finished ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                                 }`}>
                                 {item.homegoals} – {item.awaygoals}
                                 </span>
 
                                 {/* Away Team */}
-                                <span className={`text-xs truncate text-left w-20 shrink-0 ${
-                                draw ? 'font-normal opacity-60' : !homeWin ? 'font-bold text-[var(--gold)]' : 'font-normal opacity-60'
+                                <span className={`text-xs font-mono truncate text-left w-20 shrink-0 ${
+                                draw ? 'font-normal opacity-60' : !homeWin ? 'font-semibold text-gold' : 'font-normal opacity-60'
                                 }`}>
                                 {isMobile ? teamAbbreviations[item.away] || item.away.substring(0, 3).toUpperCase() : item.away}
                                 </span>

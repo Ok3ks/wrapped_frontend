@@ -2,7 +2,7 @@
 
 import {useState} from "react"
 import {
-    type ColumnDef, 
+    type ColumnDef,
     type ColumnFiltersState,
     flexRender,
     getCoreRowModel,
@@ -12,220 +12,122 @@ import {
     type RowData,
     type SortingState,
     useReactTable,
-    type VisibilityState,
 } from "@tanstack/react-table"
 
-import { ArrowUpDown} from "lucide-react"
+import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow
-} from "../components/ui/table"
-import type { Players, Position } from '~/types'
+import type { Players } from '~/types'
 
 
 export const columns: ColumnDef<Players>[] = [
-
-    ///State Management
-
     {
         accessorKey: "player_name",
-        header: "Player Name"
+        header: "Player",
     },
     {
         accessorKey: "minutes",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                minutes
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                Min <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
     {
-        
         accessorKey: "total_points",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Total points
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                Pts <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
-    {
-        accessorKey: "team",
-        header: "Team",
-    },
+    { accessorKey: "team", header: "Team" },
     {
         accessorKey: "expected_assists",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                xA
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                xA <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
     {
         accessorKey: "expected_goal_involvements",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                xGI
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                xGI <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
     {
         accessorKey: "expected_goals",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                xG
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                xG <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
     {
         accessorKey: "expected_goals_conceded",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                xGC
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                xGC <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
     {
         accessorKey: "bonus",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Bonus
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                Bonus <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
     {
         accessorKey: "bps",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Bps
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                BPS <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
     {
         accessorKey: "creativity",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Creativity
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            }
+                Cre <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
     {
         accessorKey: "threat",
-        header: ({ column }) => {
-            return (
-                <Button
-                variant="ghost"
+        header: ({ column }) => (
+            <Button variant="ghost" className="text-gold hover:text-gold px-1 h-auto py-1 text-xs"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                threat
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-                )
-            },
+                Thr <ArrowUpDown className="ml-1 h-3 w-3" />
+            </Button>
+        ),
     },
-    {
-        accessorKey: "defensive_contribution",
-        header: "DC",
-    },
-    {
-        accessorKey: "own_goals",
-        header: "Own Goals",
-    },
-    {
-        accessorKey: "penalties_missed",
-        header: "Penalties Missed",
-    },
-    {
-        accessorKey: "penalties_saved",
-        header: "Penalties Saved",
-    },
-    {
-        accessorKey: "position",
-        header: "Position",
-    },
-    {
-        accessorKey: "recoveries",
-        header: "Recoveries",
-    },
-    {
-        accessorKey: "clean_sheets",
-        header: "Clean Sheets",
-    },
-    {
-        accessorKey: "red_cards",
-        header: "Red Cards",
-    },
-    {
-        accessorKey: "saves",
-        header: "Saves",
-    },
-    {
-        accessorKey: "goals_conceded",
-        header: "Goals Conceded",
-    },
-    {
-        accessorKey: "goal_scored",
-        header: "Goals Scored",
-    },
-    {
-        accessorKey: "tackles",
-        header: "tackles"
-    },
-   
-    {
-        accessorKey: "yellow_cards",
-        header: "Yellow Cards",
-    },
-    
+    { accessorKey: "defensive_contribution", header: "DC" },
+    { accessorKey: "own_goals", header: "OG" },
+    { accessorKey: "penalties_missed", header: "PM" },
+    { accessorKey: "penalties_saved", header: "PS" },
+    { accessorKey: "position", header: "Pos" },
+    { accessorKey: "recoveries", header: "Rec" },
+    { accessorKey: "clean_sheets", header: "CS" },
+    { accessorKey: "red_cards", header: "RC" },
+    { accessorKey: "saves", header: "Sav" },
+    { accessorKey: "goals_conceded", header: "GC" },
+    { accessorKey: "goal_scored", header: "GS" },
+    { accessorKey: "tackles", header: "Tkl" },
+    { accessorKey: "yellow_cards", header: "YC" },
 ]
 
 interface DataTableProps<TData, TValue> {
@@ -238,10 +140,7 @@ export function DataTable<TData, TValue>({
     data,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([
-        {
-            id: 'total_points', //you should get autocomplete for the `id` and `desc` properties
-            desc: true,
-          }
+        { id: 'total_points', desc: true }
     ]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [globalFilter, setGlobalFilter] = useState('');
@@ -249,36 +148,34 @@ export function DataTable<TData, TValue>({
         pageIndex: 0,
         pageSize: 6,
     });
-    const [curPosition, setCurPosition] = useState<string>('');
-    const positions = ["GK", "DEF", "MID", "FWD", "ALL"];
-    const posMap = new Map<String, string>([
-        ["GK","Goalkeeper"], 
-        ["DEF", "Defender"], 
-        ["MID", "Midfielder"], 
+    const [curPosition, setCurPosition] = useState<string>('ALL');
+    const positions = ["ALL", "GK", "DEF", "MID", "FWD"];
+    const posMap = new Map<string, string>([
+        ["GK","Goalkeeper"],
+        ["DEF", "Defender"],
+        ["MID", "Midfielder"],
         ["FWD", "Forward"],
         ["ALL", ""]
     ])
 
-function multiColumnFilter<TData extends Players & RowData>(
-  row: { original: TData },
-  columnId: string,
-  filterValue: string
-) {
-  const search = filterValue.toLowerCase();
-
-  return (
-    row.original.position.toLowerCase().includes(search) ||
-    row.original.player_name.toLowerCase().includes(search) ||
-    row.original.team.toLowerCase().includes(search) 
-  );
-}
-
+    function multiColumnFilter<TData extends Players & RowData>(
+        row: { original: TData },
+        columnId: string,
+        filterValue: string
+    ) {
+        const search = filterValue.toLowerCase();
+        return (
+            row.original.position.toLowerCase().includes(search) ||
+            row.original.player_name.toLowerCase().includes(search) ||
+            row.original.team.toLowerCase().includes(search)
+        );
+    }
 
     const table = useReactTable<Players>({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        onSortingChange:setSorting,
+        onSortingChange: setSorting,
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
@@ -288,129 +185,123 @@ function multiColumnFilter<TData extends Players & RowData>(
         onPaginationChange: setPagination,
         rowCount: data.length - 1,
         state: {
-            sorting: sorting,
-            globalFilter: globalFilter,
-            pagination: pagination,
-            
-        },    
+            sorting,
+            globalFilter,
+            pagination,
+        },
     })
 
     return (
-        <div>
-            <div className={`flex items-center py-4 justify-left flex grid-rows-${positions.length} gap-2`}>
-                <Input
-                    placeholder="Search"
-                    value={globalFilter
-                    }
-                    onChange={(event) => {
-                        setGlobalFilter(event.target.value);
-                    }
-                    }
-                    className="max-w-sm"
-                    />
-            {
-                positions.map((position, index, array) => <Button key={position} className="button-filter" onClick={() => {
-                    setCurPosition(position);
-                    setGlobalFilter(posMap.get(position) ?? "")
-                }}> {position} </Button>)
-            }
-            </div>
-        <div className="gameweek-table">
-        <div style={{ overflowX: 'auto', position: 'relative' }}>
-        
-            <Table>
-                <TableHeader>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => {
-                                return (
-                                    <TableHead key={header.id}>
-                                        {header.isPlaceholder
-                                        ? null 
-                                        : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )
-                                    
-                                    }
-                                    </TableHead>
-                                )
-                            })}
-                        </TableRow>
+        <div className="w-full max-w-full overflow-hidden">
+            {/* Search + position filters */}
+            <div className="flex flex-wrap items-center gap-2 py-3">
+                <input
+                    placeholder="Search player, team..."
+                    value={globalFilter}
+                    onChange={(e) => setGlobalFilter(e.target.value)}
+                    className="h-8 px-3 text-sm font-mono font-normal bg-surface border border-gold-border text-text-primary placeholder:text-text-secondary outline-none focus:border-gold w-full sm:w-48 transition-colors"
+                />
+                <div className="flex gap-1">
+                    {positions.map((position) => (
+                        <button
+                            key={position}
+                            className={`px-2.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider border transition-colors
+                                ${curPosition === position
+                                    ? "bg-gold text-surface border-gold"
+                                    : "bg-transparent text-text-secondary border-gold-border hover:text-text-primary hover:border-gold"
+                                }`}
+                            onClick={() => {
+                                setCurPosition(position);
+                                setGlobalFilter(posMap.get(position) ?? "")
+                            }}
+                        >
+                            {position}
+                        </button>
                     ))}
-                </TableHeader>
-
-                <TableBody className="font-mono">
-                    {table.getRowModel().rows?.length 
-                    ? (
-                        table.getRowModel().rows.map((row) => (
-                            <TableRow
-                            key={row.id}
-                            data-state={row.getIsSelected() && "selected"}
-                            >
-
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                ))
-                                }
-                            </TableRow>
-                        ))
-                    )
-                    : (
-                        <TableRow>
-                            <TableCell colSpan={columns.length} className="h-24 text-center">
-                                No results.
-                            </TableCell>
-                        </TableRow>
-                    )
-                
-                }
-                </TableBody>
-            </Table>
+                </div>
             </div>
-        </div>
-        <div className={"pagination flex items-center justify-end space-x-2 py-4"}>
-            <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                    // table.setPageIndex(pagination.pageIndex - 1);
-                    setPagination(old => ({ ...old, pageIndex: pagination.pageIndex - 1 }));
-                    table.previousPage();
-                }
-                
-                }
-                disabled={!table.getCanPreviousPage()}
-            >
-                Previous
-            </Button>
-            <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                    setPagination(old => ({ ...old, pageIndex: pagination.pageIndex + 1 }));
-                    table.nextPage();
-                }}
-                disabled={!table.getCanNextPage()}
-            >
-                Next
-            </Button>
-            {/* <select
-                value={pagination.pageSize}
-                onChange={e => {
-                    setPagination(old => ({ ...old, pageSize: Number(e.target.value) }))}
-                }
-                className= "py-2 px-4 rounded font-bold transition-colors duration-300"
-                >
-                {[5, 10, 15].map(size => (
-                    <option key={size} value={size}>
-                    {size}
-                    </option>
-                ))}
-            </select> */}
-        </div>
+
+            {/* Table with styled scrollbar */}
+            <div className="data-table-scroll border border-gold-border">
+                <table className="w-full text-sm">
+                    <thead>
+                        {table.getHeaderGroups().map((headerGroup) => (
+                            <tr key={headerGroup.id} className="border-b-2 border-gold-border bg-surface">
+                                {headerGroup.headers.map((header) => (
+                                    <th
+                                        key={header.id}
+                                        className="h-9 px-2 text-left align-middle text-xs font-mono font-semibold uppercase tracking-wider text-gold whitespace-nowrap"
+                                    >
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(header.column.columnDef.header, header.getContext())
+                                        }
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+
+                    <tbody className="font-body font-normal text-xs">
+                        {table.getRowModel().rows?.length
+                            ? table.getRowModel().rows.map((row, i) => (
+                                <tr
+                                    key={row.id}
+                                    data-state={row.getIsSelected() && "selected"}
+                                    className={`border-b border-gold-subtle transition-colors hover:bg-gold-subtle
+                                        ${i % 2 === 0 ? "bg-surface" : "bg-surface-2"}`}
+                                >
+                                    {row.getVisibleCells().map((cell, ci) => (
+                                        <td
+                                            key={cell.id}
+                                            className={`px-2 py-2 align-middle whitespace-nowrap
+                                                ${ci === 0 ? "text-text-primary font-medium" : "text-text-secondary"}`}
+                                        >
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))
+                            : (
+                                <tr>
+                                    <td colSpan={columns.length} className="h-16 text-center text-text-secondary">
+                                        No results.
+                                    </td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Pagination */}
+            <div className="flex items-center justify-between py-3 text-xs text-text-secondary">
+                <span>
+                    Page {pagination.pageIndex + 1} of {table.getPageCount()}
+                </span>
+                <div className="flex items-center gap-1">
+                    <button
+                        className="flex items-center gap-1 px-2.5 py-1.5 font-mono font-medium border border-gold-border text-text-secondary hover:text-text-primary hover:border-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        onClick={() => {
+                            setPagination(old => ({ ...old, pageIndex: old.pageIndex - 1 }));
+                            table.previousPage();
+                        }}
+                        disabled={!table.getCanPreviousPage()}
+                    >
+                        <ChevronLeft size={14} /> Prev
+                    </button>
+                    <button
+                        className="flex items-center gap-1 px-2.5 py-1.5 font-mono font-medium border border-gold-border text-text-secondary hover:text-text-primary hover:border-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        onClick={() => {
+                            setPagination(old => ({ ...old, pageIndex: old.pageIndex + 1 }));
+                            table.nextPage();
+                        }}
+                        disabled={!table.getCanNextPage()}
+                    >
+                        Next <ChevronRight size={14} />
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
