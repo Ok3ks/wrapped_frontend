@@ -1,32 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { ArrowRight, ArrowLeft, ExternalLink, FileBarChart, BarChart2 } from "lucide-react";
-import { restService } from "~/api/apiService";
+import { ArrowRight, ArrowLeft, ExternalLink, FileBarChart, BarChart2, HelpCircle } from "lucide-react";
 
 const ReportPage: React.FC = () => {
   const [fplId, setFplId] = useState<string>("");
   const [submittedFplId, setSubmittedFplId] = useState<boolean>(false);
-  const [report, setReport] = useState<Record<string, any> | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
-  const handleFplIdSubmit = async (e: React.FormEvent) => {
+  const handleFplIdSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!/^\d+$/.test(fplId)) return;
-    setSubmittedFplId(true);
-    setReport(null);
-    setError(null);
-    try {
-      const res = await restService.seasonParticipantReport("2025_2026", fplId);
-      const json = await res.json();
-      if (json.errors?.length) throw new Error(json.errors[0].message);
-      setReport(json.data?.seasonParticipantReport ?? {});
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load report");
+    if (fplId && /^\d+$/.test(fplId)) {
+      setSubmittedFplId(true);
+      console.log("Submitted FPL ID:", fplId);
     }
   };
-
-  const fmt = (v: unknown) =>
-    v == null ? "—" : typeof v === "object" ? JSON.stringify(v) : String(v);
 
   return (
     <div className="min-h-full bg-gray-50 text-gray-900 relative overflow-hidden">
@@ -103,17 +89,15 @@ const ReportPage: React.FC = () => {
                   <div className="flex items-center gap-3 mb-3">
                     <BarChart2 size={28} className="text-gray-900 shrink-0" />
                     <div>
-                      <p className="font-mono font-semibold text-lg">
-                        {error ? "Error" : report ? "Ready" : "Processing"}
-                      </p>
+                      <p className="font-mono font-semibold text-lg">Processing</p>
                       <p className="text-gray-500 text-sm font-mono font-normal">FPL ID: <span className="font-bold text-gray-900">{fplId}</span></p>
                     </div>
                   </div>
                   <p className="text-gray-400 text-sm font-body font-normal mb-4">
-                    {error ?? "Generating season performance, transfer analysis, captain choices, and more."}
+                    Generating season performance, transfer analysis, captain choices, and more.
                   </p>
                   <button
-                    onClick={() => { setFplId(""); setSubmittedFplId(false); setReport(null); setError(null); }}
+                    onClick={() => { setFplId(""); setSubmittedFplId(false); }}
                     className="text-sm font-mono font-semibold text-gray-900 underline underline-offset-2 hover:text-gray-600 cursor-pointer"
                   >
                     Try a different ID
@@ -199,9 +183,7 @@ const ReportPage: React.FC = () => {
             <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
               <div className="w-8 h-1 bg-gray-900" />
               <div>
-                <p className={`text-2xl font-mono font-bold sm:text-3xl ${report?.nTransfers != null ? "text-gray-900" : "text-gray-200"}`}>
-                  {fmt(report?.nTransfers)}
-                </p>
+                <p className="text-2xl font-mono font-bold text-gray-200 sm:text-3xl">—</p>
                 <p className="text-xs font-mono font-normal text-gray-400 uppercase tracking-wider mt-1">Transfers</p>
               </div>
             </div>
@@ -213,11 +195,11 @@ const ReportPage: React.FC = () => {
               <div className="w-10 h-1 bg-gray-900 mb-3" />
               <p className="text-sm font-mono font-semibold uppercase tracking-wider">Captain Picks</p>
               <p className="text-xs font-body font-normal text-gray-400 mt-1">Your captaincy decisions and hit rates</p>
-                <div className="flex gap-2 mt-4">
-                  {[60, 40, 80, 30, 70].map((w, i) => (
-                    <div key={i} className="h-2 bg-gray-100" style={{ width: `${w}%` }} />
-                  ))}
-                </div>
+              <div className="flex gap-2 mt-4">
+                {[60, 40, 80, 30, 70].map((w, i) => (
+                  <div key={i} className="h-2 bg-gray-100" style={{ width: `${w}%` }} />
+                ))}
+              </div>
             </div>
 
             <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
