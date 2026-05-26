@@ -94,7 +94,7 @@ export default function LandingPage() {
                     </select>
 
                     {/* Gameweek navigator */}
-                    <div className="hidden sm:flex flex items-center sm:gap-2">
+                    <div className="hidden sm:flex items-center sm:gap-2">
                         <Button className="nav-btn" onClick={() => setGameweek(Math.max(MIN_GAMEWEEK, curGameweek - 1))} disabled={curGameweek === MIN_GAMEWEEK}>
                             <ArrowLeftCircle size={20} />
                         </Button>
@@ -106,9 +106,6 @@ export default function LandingPage() {
                         </Button>
                     </div>
                 </div>
-
-                {/* Content */}
-                <GameweekTile gameweek={curGameweek} season={curSeason} />
 
                 {/* Content */}
                 <GameweekTile gameweek={curGameweek} season={curSeason} />
