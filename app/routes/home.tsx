@@ -109,7 +109,11 @@ export default function LandingPage() {
 
                 {/* Content */}
                 <GameweekTile gameweek={curGameweek} season={curSeason} />
+
+                {/* Content */}
+                <GameweekTile gameweek={curGameweek} season={curSeason} />
             </div>
         </div>
+    );
     );
 }
