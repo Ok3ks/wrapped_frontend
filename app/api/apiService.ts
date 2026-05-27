@@ -24,23 +24,34 @@ export const restService = {
         seasonParticipantReport(season: $season, entryId: $entryId)
         {
           nTransfers
-          transferPointsGained {
-            freehit {
-              gw
-              transferPointDelta
+          totalPointsGained {
+            totalPoints
+            gw
+          }
+          captainPoints {
+            gw
+            finalCaptainGameweekScore
+            captainFixture {
+              gameweek
+              homeGoals
+              awayGoals
+              home
+              away
             }
-            transfers {
-              gw
-              transferPointDelta
+            viceCaptainFixture {
+              gameweek
+              homeGoals
+              awayGoals
+              home
+              away
             }
-            bboost {
-              gw
-              transferPointDelta
-            }
-            wildcard {
-              gw
-              transferPointDelta
-            }
+            activeChip
+            captainPlayerName
+            viceCaptainPlayerName
+            captainGameweekScore
+            viceCaptainGameweekScore
+            captainMinutes
+            viceCaptainMinutes
           }
         }
       }

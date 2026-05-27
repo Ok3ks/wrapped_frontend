@@ -28,6 +28,16 @@ const ReportPage: React.FC = () => {
   const fmt = (v: unknown) =>
     v == null ? "—" : typeof v === "object" ? JSON.stringify(v) : String(v);
 
+  const getTotalPoints = () => {
+    const obj = report?.totalPointsGained.reduce((sum:number, item: {totalPoints: number, gw: number}) => sum + item.totalPoints, 0)
+    return obj
+  }
+
+  const getMaxGameweek = () => {
+    const obj = report?.totalPointsGained.reduce((prev:  {totalPoints: number, gw: number}, curr: {totalPoints: number, gw: number}) => prev.totalPoints > curr.totalPoints ? prev : curr)
+    return obj
+  }
+
   return (
     <div className="min-h-full bg-gray-50 text-gray-900 relative overflow-hidden">
       {/* Corner flags */}
@@ -182,7 +192,9 @@ const ReportPage: React.FC = () => {
             <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
               <div className="w-8 h-1 bg-gray-900" />
               <div>
-                <p className="text-2xl font-mono font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className={`text-2xl font-mono font-bold text-gray-200 sm:text-3xl ${report?.totalPointsGained != null ? "text-gray-900" : "text-gray-200"}`}>
+                  {getTotalPoints()}
+                </p>
                 <p className="text-xs font-mono font-normal text-gray-400 uppercase tracking-wider mt-1">Total Points</p>
               </div>
             </div>
@@ -191,7 +203,9 @@ const ReportPage: React.FC = () => {
             <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
               <div className="w-8 h-1 bg-gray-900" />
               <div>
-                <p className="text-2xl font-mono font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className={`text-2xl font-mono font-bold text-gray-200 sm:text-3xl ${report?.totalPointsGained != null ? "text-gray-900" : "text-gray-200"} `}>
+                  {getMaxGameweek()?.gw}
+                </p>
                 <p className="text-xs font-mono font-normal text-gray-400 uppercase tracking-wider mt-1">Best GW</p>
               </div>
             </div>
@@ -278,7 +292,7 @@ const ReportPage: React.FC = () => {
                 <circle cx="240" cy="170" r="6" fill="rgba(255,255,255,0.5)" />
                 {/* FWD */}
                 <circle cx="110" cy="70" r="6" fill="rgba(255,255,255,0.5)" />
-                <circle cx="190" cy="70" r="6" fill="rgba(255,255,255,0.5)" />
+                <circle cx="190" cy="70" r="6" fill="rgba(252, 243, 243, 0.5)" />
               </svg>
 
               {/* Label overlay */}
