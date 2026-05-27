@@ -18,9 +18,10 @@ import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "../components/ui/button"
 import type { Players } from '~/types'
 import { TeamChip } from "./top-performers"
+import type { TeamFixture } from "./gameweek-tile"
 
-
-export const columns: ColumnDef<Players>[] = [
+export function buildColumns(teamFixtures: Map<string, TeamFixture>): ColumnDef<Players>[] {
+    return [
     {
         accessorKey: "player_name",
         header: "Player",
@@ -50,6 +51,31 @@ export const columns: ColumnDef<Players>[] = [
         ),
     },
     { accessorKey: "team", header: "Team" },
+    {
+        id: "score",
+        header: "Score",
+        cell: ({ row }) => {
+            const fixture = teamFixtures.get(row.original.team);
+            if (!fixture) return <span className="text-text-secondary">—</span>;
+            const { teamGoals, opponentGoals, finished } = fixture;
+            const tone = !finished
+                ? "text-text-secondary"
+                : teamGoals > opponentGoals
+                    ? "text-emerald-400"
+                    : teamGoals < opponentGoals
+                        ? "text-rose-400"
+                        : "text-text-secondary";
+            return (
+                <span className={`font-mono font-semibold whitespace-nowrap ${tone}`}>
+                    {teamGoals}–{opponentGoals}
+                </span>
+            );
+        },
+    },
+    { accessorKey: "goals_scored", header: "GS" },
+    { accessorKey: "goals_conceded", header: "GC" },
+    { accessorKey: "clean_sheets", header: "CS" },
+    { accessorKey: "position", header: "Pos" },
     {
         accessorKey: "expected_assists",
         header: ({ column }) => (
@@ -126,16 +152,15 @@ export const columns: ColumnDef<Players>[] = [
     { accessorKey: "own_goals", header: "OG" },
     { accessorKey: "penalties_missed", header: "PM" },
     { accessorKey: "penalties_saved", header: "PS" },
-    { accessorKey: "position", header: "Pos" },
     { accessorKey: "recoveries", header: "Rec" },
-    { accessorKey: "clean_sheets", header: "CS" },
     { accessorKey: "red_cards", header: "RC" },
     { accessorKey: "saves", header: "Sav" },
-    { accessorKey: "goals_conceded", header: "GC" },
-    { accessorKey: "goals_scored", header: "GS" },
     { accessorKey: "tackles", header: "Tkl" },
     { accessorKey: "yellow_cards", header: "YC" },
-]
+    ];
+}
+
+export const columns: ColumnDef<Players>[] = buildColumns(new Map());
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<Players, TValue>[]

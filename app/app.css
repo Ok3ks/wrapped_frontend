@@ -311,7 +311,6 @@ body {
 @media (min-width: 768px) {
   .gameweek-tile {
     padding: var(--space-4) var(--space-5);
-    height: 550px;
   }
 }
 
