@@ -12,9 +12,9 @@ export type Players = {
     expected_goals_conceded: string, ///
     gameweek: number,
     goals_conceded: number,
-    goal_scored: number,
+    goals_scored: number,
     ict_index: string, ///
-    in_dream_team: number,
+    in_dreamteam: number,
     index: number,
     influence: string, ///
     minutes: number,

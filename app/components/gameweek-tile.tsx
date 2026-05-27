@@ -6,6 +6,7 @@ import { useIsMobile } from "~/components/ui/use-mobile";
 import { teamAbbreviations } from "~/lib/team-abbreviations";
 import { PlayerChartsDashboard } from "./player-dashboard";
 import { TeamChartsDashboard } from "./team-dashboard";
+import { TopPerformers } from "./top-performers";
 
 
 interface gameweekTileProps {
@@ -120,7 +121,7 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
 
 
 
-        goal_scored: 0,
+        goals_scored: 0,
 
 
 
@@ -128,7 +129,7 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
 
 
 
-        in_dream_team: 0,
+        in_dreamteam: 0,
 
 
 
@@ -288,6 +289,7 @@ export function GameweekTile({ gameweek, season }: gameweekTileProps) {
             <div className="fixture-tile-wrapper">
                 <FixtureTile key={gameweek+1} gameweek={gameweek} season={season}></FixtureTile>
             </div>
+                <TopPerformers data={data} />
                 <DataTable columns={columns} data={data} />
         </div>
 

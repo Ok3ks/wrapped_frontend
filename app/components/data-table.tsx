@@ -17,12 +17,19 @@ import {
 import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "../components/ui/button"
 import type { Players } from '~/types'
+import { TeamChip } from "./top-performers"
 
 
 export const columns: ColumnDef<Players>[] = [
     {
         accessorKey: "player_name",
         header: "Player",
+        cell: ({ row }) => (
+            <div className="flex items-center gap-1.5 min-w-0">
+                <span className="truncate">{row.original.player_name}</span>
+                <TeamChip team={row.original.team} size="xs" />
+            </div>
+        ),
     },
     {
         accessorKey: "minutes",
@@ -125,7 +132,7 @@ export const columns: ColumnDef<Players>[] = [
     { accessorKey: "red_cards", header: "RC" },
     { accessorKey: "saves", header: "Sav" },
     { accessorKey: "goals_conceded", header: "GC" },
-    { accessorKey: "goal_scored", header: "GS" },
+    { accessorKey: "goals_scored", header: "GS" },
     { accessorKey: "tackles", header: "Tkl" },
     { accessorKey: "yellow_cards", header: "YC" },
 ]
