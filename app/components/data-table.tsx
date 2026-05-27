@@ -18,9 +18,17 @@ import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "../components/ui/button"
 import type { Players } from '~/types'
 import { TeamChip } from "./top-performers"
+import { teamAbbreviations } from "~/lib/team-abbreviations"
+import type { TeamFixture } from "./gameweek-tile"
 
+function abbr(team: string) {
+    return teamAbbreviations[team] || team.substring(0, 3).toUpperCase();
+}
 
-export const columns: ColumnDef<Players>[] = [
+export function buildColumns(teamFixtures: Map<string, TeamFixture>): ColumnDef<Players>[] {
+    const hasFixtures = teamFixtures.size > 0;
+
+    return [
     {
         accessorKey: "player_name",
         header: "Player",
@@ -49,7 +57,27 @@ export const columns: ColumnDef<Players>[] = [
             </Button>
         ),
     },
-    { accessorKey: "team", header: "Team" },
+    {
+        accessorKey: "team",
+        header: hasFixtures ? "Fixture" : "Team",
+        cell: ({ row }) => {
+            const team = row.original.team;
+            const fixture = teamFixtures.get(team);
+            if (!fixture) {
+                return <span>{team}</span>;
+            }
+            return (
+                <span className="font-mono text-xs whitespace-nowrap">
+                    <span className="text-text-primary">{abbr(team)}</span>
+                    <span className="text-text-secondary"> {fixture.isHome ? 'vs' : '@'} </span>
+                    <span className="text-text-primary">{abbr(fixture.opponent)}</span>
+                    <span className={`ml-1 text-[0.6rem] ${fixture.isHome ? 'text-gold' : 'text-text-secondary'}`}>
+                        ({fixture.isHome ? 'H' : 'A'})
+                    </span>
+                </span>
+            );
+        },
+    },
     {
         accessorKey: "expected_assists",
         header: ({ column }) => (
@@ -135,7 +163,10 @@ export const columns: ColumnDef<Players>[] = [
     { accessorKey: "goals_scored", header: "GS" },
     { accessorKey: "tackles", header: "Tkl" },
     { accessorKey: "yellow_cards", header: "YC" },
-]
+    ];
+}
+
+export const columns: ColumnDef<Players>[] = buildColumns(new Map());
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<Players, TValue>[]
