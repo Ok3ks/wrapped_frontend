@@ -14,8 +14,8 @@ interface gameweekTileProps {
 }
 
 export type TeamFixture = {
-    opponent: string;
-    isHome: boolean;
+    teamGoals: number;
+    opponentGoals: number;
     finished: boolean;
 };
 
@@ -23,8 +23,8 @@ export function buildTeamFixtureMap(fixtures: Fixtures[] | undefined): Map<strin
     const map = new Map<string, TeamFixture>();
     if (!fixtures) return map;
     for (const f of fixtures) {
-        map.set(f.home, { opponent: f.away, isHome: true, finished: f.finished });
-        map.set(f.away, { opponent: f.home, isHome: false, finished: f.finished });
+        map.set(f.home, { teamGoals: f.homegoals, opponentGoals: f.awaygoals, finished: f.finished });
+        map.set(f.away, { teamGoals: f.awaygoals, opponentGoals: f.homegoals, finished: f.finished });
     }
     return map;
 }

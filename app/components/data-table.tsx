@@ -18,16 +18,9 @@ import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "../components/ui/button"
 import type { Players } from '~/types'
 import { TeamChip } from "./top-performers"
-import { teamAbbreviations } from "~/lib/team-abbreviations"
 import type { TeamFixture } from "./gameweek-tile"
 
-function abbr(team: string) {
-    return teamAbbreviations[team] || team.substring(0, 3).toUpperCase();
-}
-
 export function buildColumns(teamFixtures: Map<string, TeamFixture>): ColumnDef<Players>[] {
-    const hasFixtures = teamFixtures.size > 0;
-
     return [
     {
         accessorKey: "player_name",
@@ -57,23 +50,24 @@ export function buildColumns(teamFixtures: Map<string, TeamFixture>): ColumnDef<
             </Button>
         ),
     },
+    { accessorKey: "team", header: "Team" },
     {
-        accessorKey: "team",
-        header: hasFixtures ? "Fixture" : "Team",
+        id: "score",
+        header: "Score",
         cell: ({ row }) => {
-            const team = row.original.team;
-            const fixture = teamFixtures.get(team);
-            if (!fixture) {
-                return <span>{team}</span>;
-            }
+            const fixture = teamFixtures.get(row.original.team);
+            if (!fixture) return <span className="text-text-secondary">—</span>;
+            const { teamGoals, opponentGoals, finished } = fixture;
+            const tone = !finished
+                ? "text-text-secondary"
+                : teamGoals > opponentGoals
+                    ? "text-emerald-400"
+                    : teamGoals < opponentGoals
+                        ? "text-rose-400"
+                        : "text-text-secondary";
             return (
-                <span className="font-mono text-xs whitespace-nowrap">
-                    <span className="text-text-primary">{abbr(team)}</span>
-                    <span className="text-text-secondary"> {fixture.isHome ? 'vs' : '@'} </span>
-                    <span className="text-text-primary">{abbr(fixture.opponent)}</span>
-                    <span className={`ml-1 text-[0.6rem] ${fixture.isHome ? 'text-gold' : 'text-text-secondary'}`}>
-                        ({fixture.isHome ? 'H' : 'A'})
-                    </span>
+                <span className={`font-mono font-semibold whitespace-nowrap ${tone}`}>
+                    {teamGoals}–{opponentGoals}
                 </span>
             );
         },
