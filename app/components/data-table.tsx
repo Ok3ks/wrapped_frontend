@@ -72,6 +72,10 @@ export function buildColumns(teamFixtures: Map<string, TeamFixture>): ColumnDef<
             );
         },
     },
+    { accessorKey: "goals_scored", header: "GS" },
+    { accessorKey: "goals_conceded", header: "GC" },
+    { accessorKey: "clean_sheets", header: "CS" },
+    { accessorKey: "position", header: "Pos" },
     {
         accessorKey: "expected_assists",
         header: ({ column }) => (
@@ -148,13 +152,9 @@ export function buildColumns(teamFixtures: Map<string, TeamFixture>): ColumnDef<
     { accessorKey: "own_goals", header: "OG" },
     { accessorKey: "penalties_missed", header: "PM" },
     { accessorKey: "penalties_saved", header: "PS" },
-    { accessorKey: "position", header: "Pos" },
     { accessorKey: "recoveries", header: "Rec" },
-    { accessorKey: "clean_sheets", header: "CS" },
     { accessorKey: "red_cards", header: "RC" },
     { accessorKey: "saves", header: "Sav" },
-    { accessorKey: "goals_conceded", header: "GC" },
-    { accessorKey: "goals_scored", header: "GS" },
     { accessorKey: "tackles", header: "Tkl" },
     { accessorKey: "yellow_cards", header: "YC" },
     ];
