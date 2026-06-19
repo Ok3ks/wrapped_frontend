@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { ArrowRight, ArrowLeft, ExternalLink, FileBarChart, BarChart2 } from "lucide-react";
 import { restService } from "~/api/apiService";
+import { type Rank, type CaptainPickEntry } from "~/types";
+import { CaptainPicksChart, PointsChart, RankChart, TransfersChart, ValueChart } from "~/components/charts";
 
 const ReportPage: React.FC = () => {
   const [fplId, setFplId] = useState<string>("");
@@ -29,13 +31,24 @@ const ReportPage: React.FC = () => {
     v == null ? "—" : typeof v === "object" ? JSON.stringify(v) : String(v);
 
   const getTotalPoints = () => {
-    const obj = report?.totalPointsGained.reduce((sum:number, item: {totalPoints: number, gw: number}) => sum + item.totalPoints, 0)
-    return obj
+    if (report?.totalPointsGained) {
+      const obj = report?.totalPointsGained.reduce((sum:number, item: {totalPoints: number, gw: number}) => sum + item.totalPoints, 0)
+      return obj
+    }
+  }
+
+  const getOverallRank = () => {
+    if (report?.rank) {
+      const obj = report?.rank.at(-1) as Rank
+      return Number(obj?.overallRank).toLocaleString('en-US')
+    }
   }
 
   const getMaxGameweek = () => {
-    const obj = report?.totalPointsGained.reduce((prev:  {totalPoints: number, gw: number}, curr: {totalPoints: number, gw: number}) => prev.totalPoints > curr.totalPoints ? prev : curr)
-    return obj
+    if (report?.totalPointsGained) {
+      const obj = report?.totalPointsGained.reduce((prev:  {totalPoints: number, gw: number}, curr: {totalPoints: number, gw: number}) => prev.totalPoints > curr.totalPoints ? prev : curr)
+      return obj
+    }
   }
 
   return (
@@ -172,11 +185,7 @@ const ReportPage: React.FC = () => {
                 <div className="w-10 h-1 bg-gray-900 mb-3" />
                 <p className="text-sm font-mono font-semibold uppercase tracking-wider">Season Overview</p>
                 <p className="text-xs font-body font-normal text-gray-400 mt-1">Points, rank, and trajectory</p>
-              </div>
-              <div className="flex gap-1 items-end mt-4">
-                {[40, 65, 50, 80, 55, 70, 90, 60, 75, 85, 45, 95].map((h, i) => (
-                  <div key={i} className="flex-1 bg-gray-100" style={{ height: `${h}%`, minHeight: `${h * 0.8}px` }} />
-                ))}
+                <PointsChart data={report?.rank} />
               </div>
             </div>
 
@@ -184,7 +193,9 @@ const ReportPage: React.FC = () => {
             <div className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
               <div className="w-8 h-1 bg-gray-900" />
               <div>
-                <p className="text-2xl font-mono font-bold text-gray-200 sm:text-3xl">—</p>
+                <p className="text-2xl font-mono font-bold text-black-200 sm:text-3xl">
+                  {getOverallRank()}
+                </p>
                 <p className="text-xs font-mono font-normal text-gray-400 uppercase tracking-wider mt-1">Overall Rank</p>
               </div>
             </div>
@@ -222,27 +233,25 @@ const ReportPage: React.FC = () => {
           </div>
 
           {/* Second row — wide cards */}
-          <div className="grid grid-cols-1 gap-3 mt-3 sm:grid-cols-3 sm:gap-4 sm:mt-4">
+          <div className="grid grid-cols-1 gap-3 mt-3 sm:grid-cols-1 sm:gap-4 sm:mt-4">
             <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
               <div className="w-10 h-1 bg-gray-900 mb-3" />
               <p className="text-sm font-mono font-semibold uppercase tracking-wider">Captain Picks</p>
               <p className="text-xs font-body font-normal text-gray-400 mt-1">Your captaincy decisions and hit rates</p>
-                <div className="flex gap-2 mt-4">
-                  {[60, 40, 80, 30, 70].map((w, i) => (
-                    <div key={i} className="h-2 bg-gray-100" style={{ width: `${w}%` }} />
-                  ))}
-                </div>
+                <CaptainPicksChart data={report?.captainPoints as CaptainPickEntry[]} height={500}/>
             </div>
 
             <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
               <div className="w-10 h-1 bg-gray-900 mb-3" />
               <p className="text-sm font-mono font-semibold uppercase tracking-wider">Transfer History</p>
               <p className="text-xs font-body font-normal text-gray-400 mt-1">Moves, hits, and value changes</p>
-              <div className="flex items-end gap-1 mt-4">
-                {[20, 35, 15, 50, 25, 40, 30, 45].map((h, i) => (
-                  <div key={i} className="flex-1 bg-gray-100" style={{ height: `${h}px` }} />
-                ))}
-              </div>
+              <TransfersChart data={report?.rank}/>
+              <br/>
+              <RankChart data={report?.rank}/>
+              <br/>
+              <ValueChart data={report?.rank}/>
+
+
             </div>
 
             <div className="bg-[#1a472a] text-white p-0 min-h-[200px] sm:min-h-[240px] relative overflow-hidden">

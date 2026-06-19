@@ -23,6 +23,20 @@ export const restService = {
       query Report($season: String!, $entryId: Int!) {
         seasonParticipantReport(season: $season, entryId: $entryId)
         {
+          rank {
+            event
+            points
+            totalPoints
+            rank
+            rankSort
+            overallRank
+            percentileRank
+            bank
+            value
+            eventTransfers
+            eventTransfersCost
+            pointsOnBench
+          }
           nTransfers
           totalPointsGained {
             totalPoints
@@ -53,17 +67,57 @@ export const restService = {
             captainMinutes
             viceCaptainMinutes
           }
+          transferPointsGained {
+            freehit {
+              transferPointDelta
+              gw
+            }
+            wildcard {
+              transferPointDelta
+              gw
+            }
+            bboost {
+              transferPointDelta
+              gw
+            }
+            min {
+              transferPointDelta
+              gw
+            }
+            max {
+              transferPointDelta
+              gw
+            }
+            tripleCap {
+              transferPointDelta
+              gw
+            }
+          }
+          rank {
+            event
+            points
+            totalPoints
+            rank
+            rankSort
+            overallRank
+            percentileRank
+            bank
+            value
+            eventTransfers
+            eventTransfersCost
+            pointsOnBench
+          }
         }
       }
     `;
 
-      console.log("restService");
       const response = await
         fetch('/graphql/', {
           method: "POST",
           headers:{
             "Content-Type": "application/json",
           },
+          cache: 'reload',
           body: JSON.stringify({
               query,
                 operationName:"Report",

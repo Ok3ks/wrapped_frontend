@@ -52,3 +52,69 @@ export type Fixtures = {
     finished: boolean;
 };
 
+export type GameweekHistory = {
+    event: number,
+    points: number,
+    totalPoints: number,
+    rank: number,
+    rankSort: number,
+    overallRank: number,
+    percentileRank: number,
+    bank: number,
+    value: number,
+    eventTransfers: number,
+    eventTransfersCost: number,
+    pointsOnBench: number,
+  }
+
+
+export type Rank = {
+  bank: number,
+  event: number,
+  eventTransfers: number,
+  eventTransfersCost: number,
+  overallRank: number, 
+  percentileRank: number,
+  points: number,
+  pointsOnBench: number,
+  rank: number,
+  rankSort: number,
+  totalPoints: number,
+  value: number,
+}
+
+export interface CaptainPickEntry {
+    gw: number,
+    finalCaptainGameweekScore: number,
+    captainFixture: {
+      homeDifficulty: number;
+      awayDifficulty: number;
+      home: string;
+      away: string;
+      homeGoals: number | null;
+      awayGoals: number | null;
+      code: number;
+      gameweek: number;
+      finished: boolean;
+      date: string; // ISO date string (parsed from Python datetime)
+    }[],
+    viceCaptainFixture: {
+      homeDifficulty: number;
+      awayDifficulty: number;
+      home: string;
+      away: string;
+      homeGoals: number | null;
+      awayGoals: number | null;
+      code: number;
+      gameweek: number;
+      finished: boolean;
+      date: string;
+    }[],
+    activeChip: string
+    captainPlayerName: string
+    viceCaptainPlayerName: string
+    captainGameweekScore: number
+    viceCaptainGameweekScore: number
+    captainminutes: number
+    viceCaptainMinutes: number
+  }
