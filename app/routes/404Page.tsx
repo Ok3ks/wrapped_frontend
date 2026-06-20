@@ -1,78 +1,32 @@
-import { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
+import { Link } from "react-router";
 
-const NotFoundPage: React.FC = () => {
-  const svgRef = useRef<SVGSVGElement>(null);
-
-  useEffect(() => {
-    const width = 500;
-    const height = 300;
-
-    const svg = d3
-      .select(svgRef.current)
-      .attr('width', width)
-      .attr('height', height)
-      .style('background', '#f0f0f0');
-
-    // Generate random circle data for visualization
-    const circlesData = d3.range(15).map(() => ({
-      cx: Math.random() * width,
-      cy: Math.random() * height,
-      r: Math.random() * 20 + 10,
-    }));
-
-    // Enter selection: Add circles and animate their appearance
-    svg
-      .selectAll('circle')
-      .data(circlesData)
-      .enter()
-      .append('circle')
-      .attr('cx', (d) => d.cx)
-      .attr('cy', (d) => d.cy)
-      .attr('r', 0)
-      .attr('fill', 'teal')
-      .transition()
-      .duration(1500)
-      .attr('r', (d) => d.r)
-      .attr('fill', 'orange')
-      .transition()
-      .delay(1500)
-      .duration(2000)
-      .attr('cx', () => Math.random() * width)
-      .attr('cy', () => Math.random() * height);
-
-    // Cleanup on component unmount
-    return () => {
-      svg.selectAll('*').interrupt();
-    };
-  }, []);
-
+export default function NotFoundPage() {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        padding: '20px',
-      }}
-    >
-      <h1 className="font-sans font-normal text-3xl mb-2 uppercase sm:text-5xl">404 - Page Not Found</h1>
-      <p className="font-mono font-normal text-sm mb-5 text-text-secondary">
-        Oops! It looks like you've wandered off the beaten path. But to lighten the mood, enjoy this fun D3.js
-        visualization!
+    <div className="flex flex-col items-center justify-center min-h-[80vh] px-5 text-center">
+      {/* Animated scoreboard-style 404 */}
+      <div className="relative mb-8">
+        <span className="font-sans text-[8rem] sm:text-[12rem] leading-none text-gold/10 select-none">
+          404
+        </span>
+        <span className="absolute inset-0 flex items-center justify-center font-sans text-[8rem] sm:text-[12rem] leading-none text-gold animate-pulse">
+          404
+        </span>
+      </div>
+
+      <h1 className="font-sans font-normal text-2xl sm:text-4xl text-text-primary mb-3 uppercase tracking-wide">
+        Page Not Found
+      </h1>
+
+      <p className="font-body text-sm sm:text-base text-text-secondary max-w-md mb-8">
+        Looks like this page got a red card. It's been sent off and isn't coming back.
       </p>
-      <svg ref={svgRef}></svg>
-      <a
-        href="/"
-        className="font-mono font-medium text-gold underline mt-5 text-lg"
+
+      <Link
+        to="/"
+        className="inline-flex items-center gap-2 px-6 py-3 bg-gold-muted text-gold font-mono font-medium text-sm tracking-wide border border-gold-border hover:bg-gold-subtle hover:border-gold-border-hover transition-colors no-underline"
       >
-        Go Back Home
-      </a>
+        Back to Home
+      </Link>
     </div>
   );
-};
-
-export default NotFoundPage;
+}

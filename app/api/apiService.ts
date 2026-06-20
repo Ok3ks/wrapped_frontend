@@ -1,6 +1,8 @@
 import createClient from 'openapi-fetch'
 import type { Season } from '~/types'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+
 export async function handleResponse<T>(promise: Promise<any>): Promise<T> {
     const { data, error, response } = await promise
     if (!response) {
@@ -112,7 +114,7 @@ export const restService = {
     `;
 
       const response = await
-        fetch('/graphql/', {
+        fetch(`${API_BASE_URL}/graphql/`, {
           method: "POST",
           headers:{
             "Content-Type": "application/json",
@@ -133,7 +135,7 @@ export const restService = {
 }
 
 export const apiClient = createClient({
-    baseUrl: '',
+    baseUrl: API_BASE_URL,
     fetch: ((url: RequestInfo | URL, options?: RequestInit) =>
       fetch(url, {
         ...options,
