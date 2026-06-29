@@ -1,24 +1,19 @@
-# Welcome to React Router!
+# FPL Wrapped Frontend
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Fantasy Premier League (FPL) analytics frontend. Displays gameweek data, player/team dashboards, reports with charts, and standings tables. Built as an SPA that connects to a backend API via GraphQL and REST.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Tech Stack
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- **Framework**: React Router v7 (SPA mode)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4, shadcn/ui components
+- **Data Visualization**: Chart.js
+- **API**: `openapi-fetch` for REST, raw `fetch` for GraphQL
+- **Deployment**: Firebase
 
 ## Getting Started
 
 ### Installation
-
-Install the dependencies:
 
 ```bash
 npm install
@@ -32,56 +27,36 @@ Start the development server with HMR:
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+The application will be available at `http://localhost:5173`.
 
-## Building for Production
-
-Create a production build:
+### Production Build
 
 ```bash
 npm run build
 ```
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
+### Other Commands
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+npm run typecheck     # Type generation + tsc
+npm run format        # Prettier format all files
+npm run lint-ci       # Lint + prettier check + tsc --noEmit
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
+## Project Structure
 
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+app/
+  api/apiService.ts    # API client (openapi-fetch + GraphQL)
+  components/          # App components (dashboards, charts, data tables)
+  components/ui/       # shadcn/ui primitives
+  lib/                 # Utilities (data helpers, team mappings)
+  routes/              # Route components (home, report, faq, 404Page)
+  types.tsx            # Shared type definitions
+  root.tsx             # App root
+react-router.config.ts # React Router config (SPA mode)
 ```
 
-## Styling
+## Deployment
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+The app is deployed to Firebase. The backend API base URL is provided via environment variable in Firebase.
