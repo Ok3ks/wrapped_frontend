@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { ArrowRight, ArrowLeft, ExternalLink, FileBarChart, BarChart2 } from "lucide-react";
 import { restService } from "~/api/apiService";
 import { type Rank, type CaptainPickEntry } from "~/types";
+import { Skeleton } from "~/components/ui/skeleton";
 import { CaptainPicksChart, PointsChart, RankChart, TransfersChart, ValueChart } from "~/components/charts";
 
 const ReportPage: React.FC = () => {
@@ -50,6 +51,8 @@ const ReportPage: React.FC = () => {
       return obj
     }
   }
+
+  const isLoading = submittedFplId && !report && !error;
 
   return (
     <div className="min-h-full bg-gray-50 text-gray-900 relative overflow-hidden">
@@ -178,6 +181,43 @@ const ReportPage: React.FC = () => {
         <div className="mb-10 sm:mb-14">
           <p className="text-xs font-mono font-semibold uppercase tracking-widest text-gray-400 mb-4">Report Preview</p>
 
+          {!submittedFplId ? (
+            <div className="bg-white border border-gray-200 p-8 sm:p-12 flex flex-col items-center justify-center text-center min-h-[280px] sm:min-h-[340px]">
+              <FileBarChart size={40} className="text-gray-200 mb-4" />
+              <p className="text-lg font-mono font-semibold text-gray-400 sm:text-xl">No report generated yet</p>
+              <p className="text-sm font-body text-gray-300 mt-2 max-w-md">
+                Enter your FPL Manager ID above to generate a full season report with points, rank, captain picks, transfers, and more.
+              </p>
+            </div>
+          ) : isLoading ? (
+            <div className="space-y-3 sm:space-y-4">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+                <div className="col-span-2 row-span-2 bg-white border border-gray-200 p-5 min-h-[200px] sm:min-h-[280px]">
+                  <Skeleton className="w-10 h-1 mb-3" />
+                  <Skeleton className="h-4 w-32 mb-2" />
+                  <Skeleton className="h-3 w-48 mb-6" />
+                  <Skeleton className="h-[140px] sm:h-[180px] w-full" />
+                </div>
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="bg-white border border-gray-200 p-4 flex flex-col justify-between min-h-[120px] sm:min-h-[130px]">
+                    <Skeleton className="w-8 h-1" />
+                    <div>
+                      <Skeleton className="h-8 w-20 mb-2" />
+                      <Skeleton className="h-3 w-24" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {[...Array(2)].map((_, i) => (
+                <div key={i} className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
+                  <Skeleton className="w-10 h-1 mb-3" />
+                  <Skeleton className="h-4 w-32 mb-2" />
+                  <Skeleton className="h-3 w-56 mb-4" />
+                  <Skeleton className="h-[80px] sm:h-[100px] w-full" />
+                </div>
+              ))}
+            </div>
+          ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {/* Tall left column */}
             <div className="col-span-2 row-span-2 bg-white border border-gray-200 p-5 flex flex-col justify-between min-h-[200px] sm:min-h-[280px]">
@@ -231,8 +271,10 @@ const ReportPage: React.FC = () => {
               </div>
             </div>
           </div>
+          )}
 
           {/* Second row — wide cards */}
+          {submittedFplId && !isLoading && (
           <div className="grid grid-cols-1 gap-3 mt-3 sm:grid-cols-1 sm:gap-4 sm:mt-4">
             <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
               <div className="w-10 h-1 bg-gray-900 mb-3" />
@@ -311,6 +353,7 @@ const ReportPage: React.FC = () => {
               </div>
             </div>
           </div>
+          )}
         </div>
 
       </div>
