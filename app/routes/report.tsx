@@ -181,7 +181,15 @@ const ReportPage: React.FC = () => {
         <div className="mb-10 sm:mb-14">
           <p className="text-xs font-mono font-semibold uppercase tracking-widest text-gray-400 mb-4">Report Preview</p>
 
-          {isLoading ? (
+          {!submittedFplId ? (
+            <div className="bg-white border border-gray-200 p-8 sm:p-12 flex flex-col items-center justify-center text-center min-h-[280px] sm:min-h-[340px]">
+              <FileBarChart size={40} className="text-gray-200 mb-4" />
+              <p className="text-lg font-mono font-semibold text-gray-400 sm:text-xl">No report generated yet</p>
+              <p className="text-sm font-body text-gray-300 mt-2 max-w-md">
+                Enter your FPL Manager ID above to generate a full season report with points, rank, captain picks, transfers, and more.
+              </p>
+            </div>
+          ) : isLoading ? (
             <div className="space-y-3 sm:space-y-4">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
                 <div className="col-span-2 row-span-2 bg-white border border-gray-200 p-5 min-h-[200px] sm:min-h-[280px]">
@@ -266,7 +274,7 @@ const ReportPage: React.FC = () => {
           )}
 
           {/* Second row — wide cards */}
-          {!isLoading && (
+          {submittedFplId && !isLoading && (
           <div className="grid grid-cols-1 gap-3 mt-3 sm:grid-cols-1 sm:gap-4 sm:mt-4">
             <div className="bg-white border border-gray-200 p-5 min-h-[140px] sm:min-h-[160px]">
               <div className="w-10 h-1 bg-gray-900 mb-3" />
