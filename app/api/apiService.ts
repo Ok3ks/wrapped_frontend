@@ -3,6 +3,25 @@ import type { Season } from '~/types'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
 
+let cachedToken: string | null = null
+let tokenExpiry = 0
+const TOKEN_REFRESH_BUFFER_MS = 60_000
+
+async function getToken(): Promise<string> {
+  if (cachedToken && Date.now() < tokenExpiry) return cachedToken
+  const res = await fetch(`${API_BASE_URL}/api/token/`)
+  if (!res.ok) throw new Error('Failed to obtain API token')
+  const { token, expires_in } = await res.json() as { token: string; expires_in: number }
+  cachedToken = token
+  tokenExpiry = Date.now() + (expires_in * 1000) - TOKEN_REFRESH_BUFFER_MS
+  return token
+}
+
+async function authHeaders(): Promise<Record<string, string>> {
+  const token = await getToken()
+  return { 'X-API-Key': token }
+}
+
 export async function handleResponse<T>(promise: Promise<any>): Promise<T> {
     const { data, error, response } = await promise
     if (!response) {
@@ -113,11 +132,13 @@ export const restService = {
       }
     `;
 
+      const auth = await authHeaders()
       const response = await
         fetch(`${API_BASE_URL}/graphql/`, {
           method: "POST",
           headers:{
             "Content-Type": "application/json",
+            ...auth,
           },
           cache: 'reload',
           body: JSON.stringify({
@@ -136,8 +157,9 @@ export const restService = {
 
 export const apiClient = createClient({
     baseUrl: API_BASE_URL,
-    fetch: ((url: RequestInfo | URL, options?: RequestInit) =>
-      fetch(url, {
+    fetch: (async (url: RequestInfo | URL, options?: RequestInit) => {
+      const auth = await authHeaders()
+      return fetch(url, {
         ...options,
         credentials: 'include',
         headers: {
@@ -145,9 +167,10 @@ export const apiClient = createClient({
             ? Object.fromEntries(options.headers.entries())
             : (options?.headers as Record<string, string> | undefined)),
           'Content-Type': 'application/json',
-          // 'X-CSRFToken': csrftoken() ?? '',
+          ...auth,
         },
-      })) as typeof globalThis.fetch,
+      })
+    }) as typeof globalThis.fetch,
   })
 
 
