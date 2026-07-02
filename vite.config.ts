@@ -13,6 +13,10 @@ export default defineConfig(({ mode }) => {
           target: env.GRAPHQL_TARGET || "http://127.0.0.1:8000",
           changeOrigin: true,
         },
+        "/api": {
+          target: env.AUTH_ENDPOINT || "http://127.0.0.1:8000",
+          changeOrigin: true,
+        },
       },
     },
   };
