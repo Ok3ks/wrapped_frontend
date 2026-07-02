@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { ArrowRight, ArrowLeft, ExternalLink, FileBarChart, BarChart2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, ExternalLink, FileBarChart, BarChart2, Users } from "lucide-react";
 import { restService } from "~/api/apiService";
 import { type Rank, type CaptainPickEntry } from "~/types";
 import { Skeleton } from "~/components/ui/skeleton";
@@ -85,6 +85,24 @@ const ReportPage: React.FC = () => {
           <ArrowLeft size={12} /> Home
         </Link>
 
+        {/* Report section tabs */}
+        <div className="flex gap-0 mb-8 border-b border-gray-200">
+          <div className="flex items-center gap-2 px-4 py-3 border-b-2 border-gray-900 text-gray-900 cursor-default">
+            <FileBarChart size={16} />
+            <span className="text-sm font-mono font-semibold uppercase tracking-wider">Participant Report</span>
+          </div>
+          <a
+            href="https://app.fplwrapped.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-3 border-b-2 border-transparent text-gray-400 hover:text-gray-600 transition-colors no-underline"
+          >
+            <Users size={16} />
+            <span className="text-sm font-mono font-semibold uppercase tracking-wider">League Report</span>
+            <ExternalLink size={12} />
+          </a>
+        </div>
+
         {/* Hero — combined ID entry + guide */}
         <div className="bg-white border border-gray-200 mb-10 sm:mb-14">
           <div className="grid grid-cols-1 md:grid-cols-2">
@@ -127,17 +145,25 @@ const ReportPage: React.FC = () => {
               ) : (
                 <div>
                   <div className="flex items-center gap-3 mb-3">
-                    <BarChart2 size={28} className="text-gray-900 shrink-0" />
+                    <BarChart2 size={28} className={`shrink-0 ${error ? "text-destructive" : report ? "text-gray-900" : "text-gold animate-pulse"}`} />
                     <div>
-                      <p className="font-mono font-semibold text-lg">
+                      <p className={`font-mono font-semibold text-lg ${error ? "text-destructive" : report ? "text-gray-900" : "text-gold"}`}>
                         {error ? "Error" : report ? "Ready" : "Processing"}
                       </p>
                       <p className="text-gray-500 text-sm font-mono font-normal">FPL ID: <span className="font-bold text-gray-900">{fplId}</span></p>
                     </div>
                   </div>
-                  <p className="text-gray-400 text-sm font-body font-normal mb-4">
-                    {error ?? "Generating season performance, transfer analysis, captain choices, and more."}
-                  </p>
+                  {isLoading ? (
+                    <p className="text-gray-400 text-sm font-mono font-normal mb-4 whitespace-pre leading-relaxed">
+                      {"$ fpl --report --id="}{fplId}{"\n"}
+                      {"> crunching numbers...\n> analysing captain picks...\n> computing rank trajectory... "}
+                      <span className="inline-block animate-pulse">▌</span>
+                    </p>
+                  ) : (
+                    <p className="text-gray-400 text-sm font-body font-normal mb-4">
+                      {error ?? "Generating season performance, transfer analysis, captain choices, and more."}
+                    </p>
+                  )}
                   <button
                     onClick={() => { setFplId(""); setSubmittedFplId(false); setReport(null); setError(null); }}
                     className="text-sm font-mono font-semibold text-gray-900 underline underline-offset-2 hover:text-gray-600 cursor-pointer"
