@@ -89,7 +89,7 @@ const ReportPage: React.FC = () => {
         <div className="flex gap-0 mb-8 border-b border-gray-200">
           <div className="flex items-center gap-2 px-4 py-3 border-b-2 border-gray-900 text-gray-900 cursor-default">
             <FileBarChart size={16} />
-            <span className="text-sm font-mono font-semibold uppercase tracking-wider">Participant Report</span>
+            <span className="text-sm font-mono font-semibold uppercase tracking-wider">Participant</span>
           </div>
           <a
             href="https://app.fplwrapped.com"
@@ -98,7 +98,7 @@ const ReportPage: React.FC = () => {
             className="flex items-center gap-2 px-4 py-3 border-b-2 border-transparent text-gray-400 hover:text-gray-600 transition-colors no-underline"
           >
             <Users size={16} />
-            <span className="text-sm font-mono font-semibold uppercase tracking-wider">League Report</span>
+            <span className="text-sm font-mono font-semibold uppercase tracking-wider">League</span>
             <ExternalLink size={12} />
           </a>
         </div>
@@ -110,7 +110,7 @@ const ReportPage: React.FC = () => {
             <div className="p-5 sm:p-8 flex flex-col justify-center">
               <div className="flex items-center gap-2 mb-1">
                 <FileBarChart size={20} />
-                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-gray-400">Manager Report</span>
+                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-gray-400">Report</span>
               </div>
               <h1 className="text-2xl font-sans font-normal mb-4 sm:text-3xl sm:mb-6">
                 Generate your<br />FPL report
@@ -153,17 +153,6 @@ const ReportPage: React.FC = () => {
                       <p className="text-gray-500 text-sm font-mono font-normal">FPL ID: <span className="font-bold text-gray-900">{fplId}</span></p>
                     </div>
                   </div>
-                  {isLoading ? (
-                    <p className="text-gray-400 text-sm font-mono font-normal mb-4 whitespace-pre leading-relaxed">
-                      {"$ fpl --report --id="}{fplId}{"\n"}
-                      {"> crunching numbers...\n> analysing captain picks...\n> computing rank trajectory... "}
-                      <span className="inline-block animate-pulse">▌</span>
-                    </p>
-                  ) : (
-                    <p className="text-gray-400 text-sm font-body font-normal mb-4">
-                      {error ?? "Generating season performance, transfer analysis, captain choices, and more."}
-                    </p>
-                  )}
                   <button
                     onClick={() => { setFplId(""); setSubmittedFplId(false); setReport(null); setError(null); }}
                     className="text-sm font-mono font-semibold text-gray-900 underline underline-offset-2 hover:text-gray-600 cursor-pointer"
