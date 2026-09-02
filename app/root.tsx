@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { SiteHeader } from "./components/site-header";
 import { SiteFooter } from "./components/site-footer";
+import { ChatWidget } from "./components/chat/chat-widget";
 
 export const links: Route.LinksFunction = () => [
   {
@@ -55,6 +56,7 @@ export default function App() {
         <Outlet />
       </main>
       <SiteFooter />
+      <ChatWidget />
     </div>
   );
 }

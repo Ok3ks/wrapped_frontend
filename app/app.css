@@ -548,3 +548,121 @@ body {
   background-color: var(--gold);
   color: var(--dark);
 }
+
+/* ── Chat assistant ──────────────────────────────────────────────
+   Markdown rendering inside assistant bubbles. Tailwind v4 preflight
+   strips list/heading styling, so restore what the chat needs here. */
+.chat-md > :first-child {
+  margin-top: 0;
+}
+.chat-md > :last-child {
+  margin-bottom: 0;
+}
+
+.chat-md p,
+.chat-md ul,
+.chat-md ol {
+  margin: var(--space-1) 0;
+}
+
+.chat-md ul,
+.chat-md ol {
+  padding-left: var(--space-3);
+}
+
+.chat-md ul {
+  list-style: disc;
+}
+
+.chat-md ol {
+  list-style: decimal;
+}
+
+.chat-md li {
+  margin: 2px 0;
+}
+
+.chat-md strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.chat-md em {
+  color: var(--text-secondary);
+}
+
+.chat-md h1,
+.chat-md h2,
+.chat-md h3 {
+  color: var(--text-primary);
+  margin: var(--space-2) 0 var(--space-1);
+}
+
+.chat-md code {
+  font-family: monospace;
+  font-size: 0.85em;
+  background: var(--surface);
+  border: 1px solid var(--gold-border-subtle);
+  padding: 1px 4px;
+}
+
+.chat-md pre {
+  background: var(--surface);
+  border: 1px solid var(--gold-border-subtle);
+  padding: var(--space-2);
+  overflow-x: auto;
+  margin: var(--space-1) 0;
+}
+
+.chat-md pre code {
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+.chat-md table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.chat-md th,
+.chat-md td {
+  border: 1px solid var(--gold-border-subtle);
+  padding: 4px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.chat-md th {
+  background: var(--gold-subtle);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Assistant images / visualization plots */
+.chat-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--gold-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+/* Typing indicator */
+@keyframes chat-typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.typing-dot {
+  animation: chat-typing 1s infinite ease-in-out;
+}
