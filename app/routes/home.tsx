@@ -63,6 +63,7 @@ export default function LandingPage() {
             {/* Sticky gameweek sidebar */}
             <aside className="sticky top-[49px] h-[calc(100vh-49px)] w-10 shrink-0 flex-col bg-surface border-r border-gold-border overflow-y-auto gw-sidebar">
                 {Array.from({ length: 38 }, (_, i) => i + 1).map((gw) => (
+                    // .sort((a,b) => b-a
                     <button
                         key={gw}
                         onClick={() => setGameweek(gw)}
