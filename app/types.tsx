@@ -35,7 +35,7 @@ export type Players = {
 }
 
 
-export type Season = "2024_2025" | "2025_2026";
+export type Season = "2024_2025" | "2025_2026" | "2026_2027";
 
 export type Position = "GK" | "DEF" | "MID" | "FWD" | "ALL";
 export type Fixtures = {

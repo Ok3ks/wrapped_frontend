@@ -5,8 +5,8 @@ import { GameweekTile } from '~/components/gameweek-tile';
 import { Button } from '~/components/ui/button';
 import { type Season } from '~/types';
 
-const SEASONS: Season[] = ["2025_2026", "2024_2025"];
-const DEFAULT_SEASON: Season = "2025_2026";
+const SEASONS: Season[] = ["2026_2027","2025_2026", "2024_2025"];
+const DEFAULT_SEASON: Season = "2026_2027";
 const DEFAULT_GAMEWEEK = 1;
 const MIN_GAMEWEEK = 1;
 const MAX_GAMEWEEK = 38;
@@ -62,7 +62,8 @@ export default function LandingPage() {
         <div className="flex w-full max-w-full overflow-x-hidden">
             {/* Sticky gameweek sidebar */}
             <aside className="sticky top-[49px] h-[calc(100vh-49px)] w-10 shrink-0 flex-col bg-surface border-r border-gold-border overflow-y-auto gw-sidebar">
-                {Array.from({ length: 38 }, (_, i) => i + 1).sort((a,b) => b-a).map((gw) => (
+                {Array.from({ length: 38 }, (_, i) => i + 1).map((gw) => (
+                    // .sort((a,b) => b-a
                     <button
                         key={gw}
                         onClick={() => setGameweek(gw)}
