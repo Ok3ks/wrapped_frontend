@@ -23,9 +23,9 @@ export async function getFixturesData(gameweek:number, year:Season) : Promise<an
     const response = await fetch(`https://storage.googleapis.com/${year}/${gameweek}_fixture.json`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         } as HeadersInit,
-        // cache: 'reload'
+        cache: 'no-cache'
     });
 
     if (!response.ok) {
